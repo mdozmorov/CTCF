@@ -1,0 +1,19 @@
+pkgVer <- function(pkg) {
+    if (!exists("meta") || is.null(meta)) meta <- packageDescription(pkg)
+    ver <- meta$Version
+    paste0('https://github.com/mdozmorov/CTCF/', pkg, ' - R package version ', ver)
+}
+
+c(
+
+    bibentry(bibtype="manual",
+        title = "CTCF",
+        author = personList(
+            as.person("Mikhail G. Dozmorov")
+        ),
+        year = format(Sys.Date(), "%Y"),
+        url = "https://github.com/mdozmorov/CTCF",
+        note = pkgVer('CTCF'),
+        doi = ''
+    )
+)
