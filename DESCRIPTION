@@ -1,18 +1,29 @@
 Package: CTCF
-Title: What the Package Does (One Line, Title Case)
+Title: Genomic coordinates of CTCF binding sites, with orientation
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Mikhail",
+           family = "Dozmorov",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "mikhail.dozmorov@gmail.com",
+           comment = c(ORCID = "0000-0002-0086-8358"))
+Description: Genomic coordinates of CTCF binding sites with motif MA0139.1 
+    (Jaspar), in BED format. With strand orientation (directionality of binding). 
+    Human (hg19, hg38) and mouse (mm9, mm10) genomes. The binding sites were 
+    detected using the FIMO tool of the MEME suite using default settings. 
+    Extra columns include motif name (MA0139.1), score, p-value, q-value, and 
+    the motif sequence.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 URL: https://github.com/mdozmorov/CTCF
 BugReports: https://github.com/mdozmorov/CTCF/issues
+Suggests: 
+    BiocStyle,
+    knitr,
+    RefManageR,
+    rmarkdown,
+    sessioninfo
+VignetteBuilder: knitr
