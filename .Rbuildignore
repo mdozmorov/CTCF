@@ -1,3 +1,6 @@
 ^CTCF\.Rproj$
 ^\.Rproj\.user$
 ^dev$
+^README\.Rmd$
+^\.github$
+^LICENSE\.md$
