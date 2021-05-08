@@ -64,6 +64,20 @@ CTCF_hg38
       [56048]     chrY 57215279-57215297      + |    MA0139.1   19.5738 0.00000015300    0.1190 gcgccacgagggggcggtg
       [56049]     chrY 57215337-57215355      + |    MA0139.1   24.4754 0.00000000134    0.0216 tcgccagcagggggcgccc
 
+CTCF GRanges for other organisms
+
+``` r
+# hg19 CTCF coordinates
+download.file(url = "https://drive.google.com/uc?export=download&id=1f0QpyzJl-cguVHmXVq-h0LNP0-I5whfZ", destfile = "CTCF_hg19.RData")
+load(file = "CTCF_hg19.RData")
+# mm9 CTCF coordinates
+download.file(url = "https://drive.google.com/uc?export=download&id=1JhwQpD8HWt9ZHrw4qDS71_CuHwrkQrWB", destfile = "CTCF_mm9.RData")
+load(file = "CTCF_mm9.RData")
+# mm10 CTCF coordinates
+download.file(url = "https://drive.google.com/uc?export=download&id=1-XZ4lDweP1MUC1nU8QGXwzfr38pgUQGt", destfile = "CTCF_mm10.RData")
+load(file = "CTCF_mm10.RData")
+```
+
 Download the full data from the [Google Drive
 folder](https://drive.google.com/drive/folders/19ZXr7IETfks0OdYlmuc1Hqe700Pw3jPc?usp=sharing)
 
@@ -110,15 +124,14 @@ run this yourself to check for any updates on how to cite **CTCF**.
 ``` r
 print(citation("CTCF"), bibtex = TRUE)
 #> 
-#> Mikhail, Dozmorov, mikhail.dozmorov@gmail.com (2021). _CTCF_.
-#> https://github.com/mdozmorov/CTCF/CTCF - R package version 0.0.1, <URL:
-#> https://github.com/mdozmorov/CTCF>.
+#> Dozmorov MG (2021). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R
+#> package version 0.0.1, <URL: https://github.com/mdozmorov/CTCF>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {CTCF},
-#>     author = {{Mikhail} and {Dozmorov} and {mikhail.dozmorov@gmail.com}},
+#>     author = {Mikhail G. Dozmorov},
 #>     year = {2021},
 #>     url = {https://github.com/mdozmorov/CTCF},
 #>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.0.1},
