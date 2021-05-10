@@ -9,12 +9,12 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-Genomic coordinates of CTCF binding sites with motif MA0139.1 (Jaspar),
-in BED format, with strand orientation (directionality of binding).
-Human (hg19, hg38) and mouse (mm9, mm10) genomes. The binding sites were
-detected using the FIMO tool of the MEME suite using default settings.
-Extra columns include motif name (MA0139.1), score, p-value, q-value,
-and the motif sequence.
+Genomic coordinates of predicted CTCF binding sites with motif MA0139.1
+(Jaspar), in BED format, with strand orientation (directionality of
+binding). Human (hg19, hg38) and mouse (mm9, mm10) genomes. The binding
+sites were detected using the FIMO tool of the MEME suite using default
+settings. Extra columns include motif name (MA0139.1), score, p-value,
+q-value, and the motif sequence.
 
 Experimental, to be submitted as an AnnotatiohHub Bioconductor package.
 

@@ -54,12 +54,12 @@ bib <- c(
 `r Biocpkg("CTCF")` is  an experimental data package, to be submitted 
 as an AnnotatiohHub Bioconductor package.
 
-`r Biocpkg("CTCF")` contains genomic coordinates of CTCF binding sites with motif MA0139.1 
-(Jaspar), in BED format, with strand orientation (directionality of binding). 
-Human (hg19, hg38) and mouse (mm9, mm10) genomes. The binding sites were 
-detected using the FIMO tool of the MEME suite using default settings. 
-Extra columns include motif name (MA0139.1), score, p-value, q-value, and 
-the motif sequence.
+`r Biocpkg("CTCF")` contains genomic coordinates of predicted CTCF binding sites 
+with motif MA0139.1 (Jaspar), in BED format, with strand orientation 
+(directionality of binding). Human (hg19, hg38) and mouse (mm9, mm10) genomes. 
+The binding sites were detected using the FIMO tool of the MEME suite using 
+default settings. Extra columns include motif name (MA0139.1), score, p-value, 
+q-value, and the motif sequence.
 
 ## Install `CTCF`
 
