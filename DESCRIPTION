@@ -1,12 +1,28 @@
 Package: CTCF
 Title: Genomic coordinates of CTCF binding sites, with orientation
 Version: 0.0.1
-Authors@R: 
+Authors@R: c(
     person(given = "Mikhail",
            family = "Dozmorov",
            role = c("aut", "cre"),
            email = "mikhail.dozmorov@gmail.com",
-           comment = c(ORCID = "0000-0002-0086-8358"))
+           comment = c(ORCID = "0000-0002-0086-8358")),
+    person(given = "Eric",
+           family = "Davis",
+           role = c("aut")),
+    person(given = "Wancen",
+           family = "Mu",
+           role = c("aut")),
+    person(given = "Stuart",
+           family = "Lee",
+           role = c("aut")),
+    person(given = "Douglas",
+           family = "Phanstiel",
+           role = c("aut")),
+    person(given = "Michael",
+           family = "Love",
+           role = c("aut"))
+           )
 Description: Genomic coordinates of CTCF binding sites with motif MA0139.1 
     (Jaspar), in BED format. With strand orientation (directionality of binding). 
     Human (hg19, hg38) and mouse (mm9, mm10) genomes. The binding sites were 
