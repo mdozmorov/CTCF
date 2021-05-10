@@ -1,6 +1,6 @@
 ### =========================================================================
-### CTCF is an AnnotationHub package that stores genomic coordinates of CTCF
-### binding sites in BED format. With strand orientation (directionality of
+### CTCF is an AnnotationHub package that stores genomic coordinates of predicted
+### CTCF binding sites in BED format. With strand orientation (directionality of
 ### binding).
 ### -------------------------------------------------------------------------
 ###
@@ -65,6 +65,24 @@ for (subdir in subdirs) {
                         header = FALSE, stringsAsFactors = FALSE)
   # Convert to GRanges object
   ctcfGR <- GenomicRanges::makeGRangesFromDataFrame(ctcfBED, keep.extra.columns = TRUE)
+
+  # Add seqinfo
+  # Parse out genome ID from the folder name, to get hg19, hg38, mm9, or mm10
+  genome_id <- sub("CTCF_", "", subdir)
+  # Get chromosome info and match it to the chromosome order in ctcfBED
+  chrom_data <- GenomeInfoDb::getChromInfoFromUCSC(genome = genome_id)
+  chrom_data <- chrom_data[chrom_data$chrom %in% seqlevels(ctcfGR), ]
+  chrom_data <- chrom_data[match(seqlevels(ctcfGR), chrom_data$chrom), ]
+  # Check if chromosome order is the same
+  if (!all.equal(seqlevels(ctcfGR), chrom_data$chrom)) {
+    print(paste("Chromosome order does not match for", genome_id, "genome."))
+    break
+  }
+  # Assign seqinfo data
+  seqlengths(ctcfGR) <- chrom_data$size
+  isCircular(ctcfGR) <- chrom_data$circular
+  genome(ctcfGR)     <- genome_id
+
   # Assign this object to the subfolder-specific variable name
   assign(subdir, ctcfGR)
   # Save as RData object. subdir is the character name of the CTCF GRanges variable
