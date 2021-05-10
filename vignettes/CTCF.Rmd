@@ -44,7 +44,7 @@ bib <- c(
     RefManageR = citation("RefManageR")[1],
     rmarkdown = citation("rmarkdown")[1],
     sessioninfo = citation("sessioninfo")[1],
-    testthat = citation("testthat")[1],
+    # testthat = citation("testthat")[1],
     CTCF = citation("CTCF")[1]
 )
 ```
