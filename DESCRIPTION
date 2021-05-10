@@ -44,6 +44,3 @@ Suggests:
     sessioninfo
 VignetteBuilder: knitr
 biocViews: AnnotationData, Genome, CTCF
-Imports: 
-    GenomeInfoDb,
-    GenomicRanges
