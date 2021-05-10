@@ -102,6 +102,24 @@ GRanges object with 56049 ranges and 5 metadata columns:
   [56049]     chrY 57215337-57215355      + |    MA0139.1   24.4754 0.00000000134    0.0216 tcgccagcagggggcgccc
 ```
 
+Note that the q-value cutoff is 0.5. Looking at the q-value distribution:
+
+```{r echo=FALSE}
+knitr::include_graphics('../man/figures/CTCF_hg38_qvalue.png')
+```
+
+one may decide to use a more stringent cutoff. E.g., filtering by q-value less than
+0.3 filters out more than half of the predicted sites. The remaining sites may be
+considered as high-confidence CTCF sites.
+
+```{r eval=FALSE}
+length(CTCF_hg38)
+# [1] 56049
+CTCF_hg38 <- CTCF_hg38[ CTCF_hg38$q.value < 0.3 ]
+length(CTCF_hg38)
+# [1] 25474
+```
+
 CTCF GRanges for other organisms
 
 ```{r eval = FALSE}

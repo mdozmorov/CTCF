@@ -64,6 +64,23 @@ CTCF_hg38
       [56048]     chrY 57215279-57215297      + |    MA0139.1   19.5738 0.00000015300    0.1190 gcgccacgagggggcggtg
       [56049]     chrY 57215337-57215355      + |    MA0139.1   24.4754 0.00000000134    0.0216 tcgccagcagggggcgccc
 
+Note that the q-value cutoff is 0.5. Looking at the q-value
+distribution:
+
+<img src="man/figures/CTCF_hg38_qvalue.png" width="100%" />
+
+one may decide to use a more stringent cutoff. E.g., filtering by
+q-value less than 0.3 filters out more than half of the predicted sites.
+The remaining sites may be considered as high-confidence CTCF sites.
+
+``` r
+length(CTCF_hg38)
+# [1] 56049
+CTCF_hg38 <- CTCF_hg38[ CTCF_hg38$q.value < 0.3 ]
+length(CTCF_hg38)
+# [1] 25474
+```
+
 CTCF GRanges for other organisms
 
 ``` r
@@ -125,7 +142,7 @@ run this yourself to check for any updates on how to cite **CTCF**.
 print(citation("CTCF"), bibtex = TRUE)
 #> 
 #> Dozmorov MG (2021). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R
-#> package version 0.0.1, <URL: https://github.com/mdozmorov/CTCF>.
+#> package version 0.99.0, <URL: https://github.com/mdozmorov/CTCF>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -134,7 +151,7 @@ print(citation("CTCF"), bibtex = TRUE)
 #>     author = {Mikhail G. Dozmorov},
 #>     year = {2021},
 #>     url = {https://github.com/mdozmorov/CTCF},
-#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.0.1},
+#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.0},
 #>   }
 ```
 
