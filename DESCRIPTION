@@ -43,4 +43,4 @@ Suggests:
     rmarkdown,
     sessioninfo
 VignetteBuilder: knitr
-biocViews: AnnotationData, Genome, CTCF
+biocViews: AnnotationData, AnnotationHub, Genome, CTCF
