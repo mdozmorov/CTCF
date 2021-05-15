@@ -5,6 +5,9 @@
 #'
 #' @export
 #' @return Print Hello, world!
+#' @examples
+#' # Will print Hello, world
+#' hello()
 
 hello <- function() {
   print("Hello, world!")
