@@ -1,3 +1,8 @@
-# CTCF 0.0.0.9000 (2021-05-08)
+# CTCF 0.99.1 (2021-05-19)
+- Minor fixes
+  + biocViews edits
+  + metadata updated
+  + dev folder and R function placeholder removed
 
-Initial commit
+# CTCF 0.99.0 (2021-05-08)
+- Initial commit
