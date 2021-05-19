@@ -46,4 +46,4 @@ Suggests:
     rmarkdown,
     sessioninfo
 VignetteBuilder: knitr
-biocViews: AnnotationData, AnnotationHub, FunctionalAnnotation
+biocViews: AnnotationData, AnnotationHub, FunctionalAnnotation, GenomicSequence
