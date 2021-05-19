@@ -12,7 +12,7 @@ meta <- data.frame(
                     "hg38 genomic coordinates of CTCF binding motif MA0139.1, detected by FIMO",
                     "mm9 genomic coordinates of CTCF binding motif MA0139.1, detected by FIMO",
                     "mm10 genomic coordinates of CTCF binding motif MA0139.1, detected by FIMO"),
-    BiocVersion = rep("3.12", 4),
+    BiocVersion = rep("3.14", 4),
     Genome = c("hg19", "hg38", "mm9", "mm10"),
     SourceType = rep("RData", 4),
     SourceUrl = rep("https://drive.google.com/drive/folders/19ZXr7IETfks0OdYlmuc1Hqe700Pw3jPc?usp=sharing", 4),
