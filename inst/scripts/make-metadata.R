@@ -28,10 +28,10 @@ meta <- data.frame(
                   "CTCF/CTCF_hg38.RData",
                   "CTCF/CTCF_mm9.RData",
                   "CTCF/CTCF_mm10.RData"),
-    Tags = c(paste("CTCF", "hg19"),
-             paste("CTCF", "hg38"),
-             paste("CTCF", "mm9"),
-             paste("CTCF", "mm10")),
+    Tags = c(paste("hg19"),
+             paste("hg38"),
+             paste("mm9"),
+             paste("mm10")),
     Notes = "")
 
 write.csv(meta, file="inst/extdata/metadata.csv", row.names=FALSE)
