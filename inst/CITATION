@@ -9,8 +9,13 @@ c(
     bibentry(bibtype="manual",
         title = "CTCF",
         author = personList(
-            as.person("Mikhail G. Dozmorov")
-        ),
+            as.person("Mikhail G. Dozmorov"),
+            as.person("Eric Davis"),
+            as.person("Wancen Mu"),
+            as.person("Stuart Lee"),
+            as.person("Tim Triche"),
+            as.person("Douglas Phanstiel"),
+            as.person("Michael Love")),
         year = format(Sys.Date(), "%Y"),
         url = "https://github.com/mdozmorov/CTCF",
         note = pkgVer('CTCF'),
