@@ -34,7 +34,6 @@ Description: Genomic coordinates of predicted CTCF binding sites with motif MA01
     the motif sequence.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 URL: https://github.com/mdozmorov/CTCF
