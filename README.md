@@ -171,9 +171,6 @@ CTCF_mm9 <- query_data[["AH95567"]]
 CTCF_mm10 <- query_data[["AH95568"]]
 ```
 
-Download the full data from the [Google Drive
-folder](https://drive.google.com/drive/folders/19ZXr7IETfks0OdYlmuc1Hqe700Pw3jPc?usp=sharing)
-
 See [inst/scripts/make-data.R](inst/scripts/make-data.R) how to create
 the CTCF GRanges objects.
 
