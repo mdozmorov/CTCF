@@ -149,14 +149,6 @@ Date the vignette was generated.
 Sys.time()
 ```
 
-Wallclock time spent generating the vignette.
-
-```{r reproduce2, echo=FALSE}
-## Processing time in seconds
-totalTime <- diff(c(startTime, Sys.time()))
-round(totalTime, digits = 3)
-```
-
 `R` session information.
 
 ```{r reproduce3, echo=FALSE}
