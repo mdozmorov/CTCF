@@ -46,3 +46,5 @@ Suggests:
     sessioninfo
 VignetteBuilder: knitr
 biocViews: AnnotationData, AnnotationHub, FunctionalAnnotation, GenomicSequence
+Imports: 
+    AnnotationHub
