@@ -42,12 +42,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install("CTCF")
 ```
 
-And the development version from [GitHub](https://github.com/mdozmorov/CTCF) with:
-
-```{r 'install_dev', eval = FALSE}
-BiocManager::install("mdozmorov/CTCF")
-```
-
 ## Example
 
 ```{r get-data}

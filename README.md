@@ -33,13 +33,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install("CTCF")
 ```
 
-And the development version from
-[GitHub](https://github.com/mdozmorov/CTCF) with:
-
-``` r
-BiocManager::install("mdozmorov/CTCF")
-```
-
 ## Example
 
 ``` r
@@ -194,7 +187,7 @@ print(citation("CTCF"), bibtex = TRUE)
 #> 
 #> Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M
 #> (2021). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package
-#> version 0.99.1, <URL: https://github.com/mdozmorov/CTCF>.
+#> version 0.99.2, <URL: https://github.com/mdozmorov/CTCF>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -203,7 +196,7 @@ print(citation("CTCF"), bibtex = TRUE)
 #>     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},
 #>     year = {2021},
 #>     url = {https://github.com/mdozmorov/CTCF},
-#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.1},
+#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.2},
 #>   }
 ```
 
