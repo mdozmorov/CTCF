@@ -29,27 +29,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
-```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
-## Track time spent on making the vignette
-startTime <- Sys.time()
-
-## Bib setup
-library("RefManageR")
-
-## Write bibliography information
-bib <- c(
-    R = citation(),
-    BiocStyle = citation("BiocStyle")[1],
-    knitr = citation("knitr")[1],
-    RefManageR = citation("RefManageR")[1],
-    rmarkdown = citation("rmarkdown")[1],
-    sessioninfo = citation("sessioninfo")[1],
-    # testthat = citation("testthat")[1],
-    CTCF = citation("CTCF")[1]
-)
-```
-
 `CTCF` defines an AnnotationHub resource representing genomic coordinates 
 of FIMO-predicted CTCF binding sites with motif MA0139.1 (Jaspar).
 
@@ -159,15 +138,3 @@ session_info()
 ```
 
 
-
-# Bibliography
-
-This vignette was generated using `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
-with `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])` and `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])` running behind the scenes.
-
-Citations made with `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`.
-
-```{r vignetteBiblio, results = "asis", echo = FALSE, warning = FALSE, message = FALSE}
-## Print bibliography
-PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
-```
