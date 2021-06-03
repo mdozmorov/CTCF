@@ -73,12 +73,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install("CTCF")
 ```
 
-And the development version from [GitHub](https://github.com/mdozmorov/CTCF) with:
-
-```{r 'install_dev', eval = FALSE}
-BiocManager::install("mdozmorov/CTCF")
-```
-
 ## Example
 
 ```{r get-data}
@@ -134,8 +128,6 @@ CTCF_mm9 <- query_data[["AH95567"]]
 # mm10 CTCF coordinates
 CTCF_mm10 <- query_data[["AH95568"]]
 ```
-
-Download the full data from the [Google Drive folder](https://drive.google.com/drive/folders/19ZXr7IETfks0OdYlmuc1Hqe700Pw3jPc?usp=sharing)
 
 See [../inst/scripts/make-data.R](inst/scripts/make-data.R) how to create the CTCF 
 GRanges objects.
