@@ -1,6 +1,6 @@
 Package: CTCF
 Title: Genomic coordinates of CTCF binding sites, with orientation
-Version: 0.99.2
+Version: 0.99.3
 Authors@R: c(
     person(given = "Mikhail",
            family = "Dozmorov",
