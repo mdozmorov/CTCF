@@ -1,6 +1,6 @@
 Package: CTCF
 Title: Genomic coordinates of CTCF binding sites, with orientation
-Version: 0.99.3
+Version: 0.99.4
 Authors@R: c(
     person(given = "Mikhail",
            family = "Dozmorov",
@@ -41,10 +41,8 @@ BugReports: https://github.com/mdozmorov/CTCF/issues
 Suggests: 
     BiocStyle,
     knitr,
-    RefManageR,
     rmarkdown,
-    sessioninfo
+    sessioninfo,
+    AnnotationHub
 VignetteBuilder: knitr
 biocViews: AnnotationData, AnnotationHub, FunctionalAnnotation, GenomicSequence
-Imports: 
-    AnnotationHub

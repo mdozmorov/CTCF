@@ -1,3 +1,8 @@
+# CTCF 0.99.4 (2021-06-09)
+- Minor fixes
+  + Move AnnotationHub to Suggests
+  + Remove RefManager package
+
 # CTCF 0.99.2 (2021-06-02)
 - Minor fixes
   + Remove LazyData: true

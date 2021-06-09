@@ -184,7 +184,7 @@ print(citation("CTCF"), bibtex = TRUE)
 #> 
 #> Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M
 #> (2021). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package
-#> version 0.99.2, <URL: https://github.com/mdozmorov/CTCF>.
+#> version 0.99.4, <URL: https://github.com/mdozmorov/CTCF>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -193,7 +193,7 @@ print(citation("CTCF"), bibtex = TRUE)
 #>     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},
 #>     year = {2021},
 #>     url = {https://github.com/mdozmorov/CTCF},
-#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.2},
+#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.4},
 #>   }
 ```
 
