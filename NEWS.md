@@ -1,3 +1,10 @@
+# CTCF 0.99.5 (2022-07-20)
+- Major update
+  + New 51 GRanges objects with predicted and experimental CTCF sites
+    + PWM data: JASPAR, HOCOMOCO, CIS-BP, CTCFBSDB, SwissRegulon, Jolma 2013
+    + Experimental/predicted data: ENCODE SCREEN, CTCFBSDB
+    + Human/mouse genome assemblies, including mm39 and T2T
+
 # CTCF 0.99.4 (2021-06-09)
 - Minor fixes
   + Move AnnotationHub to Suggests
