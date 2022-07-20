@@ -40,7 +40,6 @@ Description: Genomic coordinates of CTCF binding sites, with strand orientation
   is a viable option to obtain CTCF coordinates in different genome assemblies. 
   CTCF sites obtained using JASPAR's MA0139.1 PWM and filtered at 1e-6 p-value 
   threshold are recommended.
-
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
