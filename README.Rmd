@@ -20,7 +20,8 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 `CTCF` defines an AnnotationHub resource representing genomic coordinates 
-of FIMO-predicted CTCF binding sites with motif MA0139.1 (Jaspar).
+of [FIMO](https://meme-suite.org/meme/doc/fimo.html)-predicted CTCF binding sites 
+with human CTCF motif [MA0139.1](http://jaspar.genereg.net/matrix/MA0139.1/) (Jaspar2022).
 
 - Human (hg19, hg38) and mouse (mm9, mm10) genomes. 
 - The binding sites were detected using the FIMO tool of the MEME suite using 

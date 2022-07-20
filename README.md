@@ -10,8 +10,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 `CTCF` defines an AnnotationHub resource representing genomic
-coordinates of FIMO-predicted CTCF binding sites with motif MA0139.1
-(Jaspar).
+coordinates of
+[FIMO](https://meme-suite.org/meme/doc/fimo.html)-predicted CTCF binding
+sites with human CTCF motif
+[MA0139.1](http://jaspar.genereg.net/matrix/MA0139.1/) (Jaspar2022).
 
 -   Human (hg19, hg38) and mouse (mm9, mm10) genomes.
 -   The binding sites were detected using the FIMO tool of the MEME
@@ -38,14 +40,11 @@ BiocManager::install("CTCF")
 ``` r
 suppressMessages(library(AnnotationHub))
 ah <- AnnotationHub()
-#> Warning: DEPRECATION: As of AnnotationHub (>2.23.2), default caching location has changed.
-#>   Problematic cache: /Users/mdozmorov/Library/Caches/AnnotationHub
-#>   See https://bioconductor.org/packages/devel/bioc/vignettes/AnnotationHub/inst/doc/TroubleshootingTheCache.html#default-caching-location-update
-#> snapshotDate(): 2021-05-18
+#> snapshotDate(): 2022-04-21
 query_data <- query(ah, "CTCF")
 query_data
 #> AnnotationHub with 466 records
-#> # snapshotDate(): 2021-05-18
+#> # snapshotDate(): 2022-04-21
 #> # $dataprovider: UCSC, Haemcode, UCSC Jaspar, Pazar
 #> # $species: Homo sapiens, Mus musculus, NA
 #> # $rdataclass: GRanges, BigWigFile
@@ -69,7 +68,7 @@ query_data
 ```
 
 The FIMO-predicted CTCF sites are named as
-“CTCF\_<genome version abbreviation>”, e.g., “CTCF\_hg38”. Use
+“CTCF\_<genome version abbreviation>”, e.g., “CTCF_hg38”. Use
 `query_data <- query(ah , "CTCF_hg38")` for a more targeted search.
 
 We can check the details about the object.
@@ -77,7 +76,7 @@ We can check the details about the object.
 ``` r
 query_data["AH95566"]
 #> AnnotationHub with 1 record
-#> # snapshotDate(): 2021-05-18
+#> # snapshotDate(): 2022-04-21
 #> # names(): AH95566
 #> # $dataprovider: UCSC Jaspar
 #> # $species: Homo sapiens
@@ -99,17 +98,8 @@ And retrieve the object.
 ``` r
 CTCF_hg38 <- query_data[["AH95566"]]
 #> loading from cache
+#> require("GenomicRanges")
 CTCF_hg38
-#> Loading required package: GenomicRanges
-#> Loading required package: stats4
-#> Loading required package: S4Vectors
-#> 
-#> Attaching package: 'S4Vectors'
-#> The following objects are masked from 'package:base':
-#> 
-#>     expand.grid, I, unname
-#> Loading required package: IRanges
-#> Loading required package: GenomeInfoDb
 #> GRanges object with 56049 ranges and 5 metadata columns:
 #>           seqnames            ranges strand |       motif     score   p.value
 #>              <Rle>         <IRanges>  <Rle> | <character> <numeric> <numeric>
@@ -181,20 +171,6 @@ run this yourself to check for any updates on how to cite **CTCF**.
 
 ``` r
 print(citation("CTCF"), bibtex = TRUE)
-#> 
-#> Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M
-#> (2021). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package
-#> version 0.99.4, <URL: https://github.com/mdozmorov/CTCF>.
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {CTCF},
-#>     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},
-#>     year = {2021},
-#>     url = {https://github.com/mdozmorov/CTCF},
-#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.4},
-#>   }
 ```
 
 Please note that the `CTCF` was only made possible thanks to many other
@@ -210,7 +186,7 @@ vignettes and/or the paper(s) describing this package.
     *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)*
     customized to use [Bioconductor’s docker
     containers](https://www.bioconductor.org/help/docker/) and
-    *[BiocCheck](https://bioconductor.org/packages/3.13/BiocCheck)*.
+    *[BiocCheck](https://bioconductor.org/packages/3.15/BiocCheck)*.
 -   Code coverage assessment is possible thanks to
     [codecov](https://codecov.io/gh) and
     *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -226,7 +202,7 @@ vignettes and/or the paper(s) describing this package.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.13/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.15/biocthis)*.
 
 ## Code of Conduct
 
