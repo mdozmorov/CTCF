@@ -3,9 +3,11 @@
 
 # CTCF
 
-<!-- badges: start
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-badges: end -->
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![BioC
+status](http://www.bioconductor.org/shields/build/release/bioc/CTCF.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/CTCF)
+[![R-CMD-check-bioc](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml)
 
 `CTCF` defines an AnnotationHub resource representing genomic
 coordinates of
@@ -320,7 +322,7 @@ print(citation("CTCF"), bibtex = TRUE)
 #> 
 #>   Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M
 #>   (2022). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package
-#>   version 0.99.4, <https://github.com/mdozmorov/CTCF>.
+#>   version 0.99.5, <https://github.com/mdozmorov/CTCF>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -329,7 +331,7 @@ print(citation("CTCF"), bibtex = TRUE)
 #>     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},
 #>     year = {2022},
 #>     url = {https://github.com/mdozmorov/CTCF},
-#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.4},
+#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.5},
 #>   }
 ```
 
