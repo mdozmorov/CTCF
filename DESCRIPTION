@@ -50,7 +50,7 @@ Suggests:
     BiocStyle,
     knitr,
     rmarkdown,
-    sessioninfo,
-    AnnotationHub
+    AnnotationHub,
+    sessioninfo
 VignetteBuilder: knitr
 biocViews: AnnotationData, AnnotationHub, FunctionalAnnotation, GenomicSequence
