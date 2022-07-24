@@ -43,7 +43,7 @@ Description: Genomic coordinates of CTCF binding sites, with strand orientation
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 URL: https://github.com/dozmorovlab/CTCF
 BugReports: https://github.com/dozmorovlab/CTCF/issues
 Suggests: 
