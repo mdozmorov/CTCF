@@ -1,0 +1,7 @@
+﻿Database,Number,Assembly,URL
+CTCFBSDB 2.0,,,
+Predicted human CTCF binding sites,13401,hg18,https://insulatordb.uthsc.edu/download/allcomp.txt.gz
+Predicted mouse CTCF binding sites,5504,mm8,https://insulatordb.uthsc.edu/download/allcomp.txt.gz
+SCREEN ENCODE,,,
+Human CTCF-bound cCREs,450641,hg38,https://api.wenglab.org/screen_v13/fdownloads/cCREs/GRCh38-CTCF.bed
+Mouse CTCF-bound cCREs,82777,mm10,https://api.wenglab.org/screen_v13/fdownloads/cCREs/mm10-CTCF.bed

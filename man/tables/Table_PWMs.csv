@@ -1,0 +1,17 @@
+﻿Motif,Length (bp),URL
+Jaspar2022,,
+MA0139.1,19,https://jaspar2022.genereg.net/matrix/MA0139.1
+MA1929.1,34,http://jaspar2022.genereg.net/matrix/MA1929.1
+MA1930.1,35,http://jaspar2022.genereg.net/matrix/MA1930.1
+HOCOMOCO v11,,
+CTCF_HUMAN.H11MO.0.A,19,http://hocomoco.autosome.ru/motif/CTCF_HUMAN.H11MO.0.A
+CTCF_MOUSE.H11MO.0.A,20,http://hocomoco.autosome.ru/motif/CTCF_MOUSE.H11MO.0.A
+SwissRegulon,,
+CTCF.p2,20,https://swissregulon.unibas.ch/wm/?wm=CTCF.p2&org=hg18
+Jolma 2013,,
+CTCF_full,17,http://floresta.eead.csic.es/footprintdb/index.php?db=HumanTF:1.0&motif=CTCF_full
+CTCFBSDB,,
+" EMBL_M1, EMBL_M2, MIT_LM2, MIT_LM7, MIT_LM23, REN_20",9-20,https://insulatordb.uthsc.edu/download/CTCFBSDB_PWM.mat
+CIS-BP,,
+83 CTCF (Homo sapiens) C2H2 ZF,11-21,http://cisbp.ccbr.utoronto.ca/TFreport.php?searchTF=T094831_2.00
+2 Ctcf (Mus musculus) C2H2 ZF,"15, 20",http://cisbp.ccbr.utoronto.ca/TFreport.php?searchTF=T100985_2.00

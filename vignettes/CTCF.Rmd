@@ -1,5 +1,5 @@
 ---
-title: "Introduction to CTCF"
+title: "CTCF liftOver"
 author: 
   - name: Mikhail Dozmorov
     affiliation:
@@ -29,97 +29,43 @@ knitr::opts_chunk$set(
 )
 ```
 
-`CTCF` defines an AnnotationHub resource representing genomic coordinates 
-of FIMO-predicted CTCF binding sites with motif MA0139.1 (Jaspar).
+# liftOver of CTCF coordinates
 
-- Human (hg19, hg38) and mouse (mm9, mm10) genomes. 
-- The binding sites were detected using the FIMO tool of the MEME suite using 
-default settings. 
-- Extra columns include motif name (MA0139.1), score, p-value, q-value, and 
-the motif sequence.
+As genome assemblies for model organisms continue to improve, CTCF sites for 
+previous genome assemblies become obsolete. Typically, the actual genome 
+sequence changes little, leading to changes in genomic coordinates.
+The [liftOver](https://genome.ucsc.edu/cgi-bin/hgLiftOver)
+method allows for conversion of genomic coordinates between genome assemblies.
 
-## Installation instructions
+Some carefully curated CTCF sites are available only for older genome assemblies.
+Examples include the data from [CTCFBSDB](https://insulatordb.uthsc.edu/),
+available for hg18 and mm8 genome assemblies.
 
-Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then 
-install `CTCF` using from [Bioconductor](http://bioconductor.org/) the following 
-code:
+To investigate whether liftOver of CTCF sites from older genome assemblies is
+a viable option, we tested for overlap between CTCF sites directly detected in
+specific genome assemblies with those lifted over. We detected CTCF sites using
+the [MA0139.1](https://jaspar.genereg.net/matrix/MA0139.1/) PWM from JASPAR 2022 
+database in hg18, hg19, hg38, and T2T genome assemblies and converted their 
+genomic coordinates using the corresponding liftOver chains 
+([download_liftOver.sh](https://github.com/dozmorovlab/CTCF.dev/blob/main/scripts/download_liftOver.sh) 
+and [convert_liftOver.sh](https://github.com/dozmorovlab/CTCF.dev/blob/main/scripts/convert_liftOver.sh)
+scripts). We observed high Jaccard overlap among CTCF sites detected in the 
+original genome assemblies or lifted over. 
 
-```{r 'install', eval = FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
-}
-
-BiocManager::install("CTCF")
-```
-
-## Example
-
-```{r get-data}
-suppressMessages(library(AnnotationHub))
-ah <- AnnotationHub()
-query_data <- query(ah, "CTCF")
-query_data
-```
-
-The FIMO-predicted CTCF sites are named as "CTCF_<genome version abbreviation>", 
-e.g., "CTCF_hg38". Use `query_data <- query(ah , "CTCF_hg38")` for a more 
-targeted search.
-
-We can check the details about the object.
-
-```{r}
-query_data["AH95566"]
-```
-
-And retrieve the object.
-
-```{r}
-CTCF_hg38 <- query_data[["AH95566"]]
-CTCF_hg38
-```
-
-Note that the default q-value cutoff is 0.5. Looking at the q-value distribution:
+**Jaccard overlaps among CTCF binding sites detected in the original and liftOver human genome assemblies.** CTCF sites were detected using JASPAR 2022 MA0139.1 PWM. The correlogram was clustered using Euclidean distance and Ward.D clustering . White-red gradient indicate low-to-high Jaccard overlaps. Jaccard values are shown in the corresponding cells.
 
 ```{r echo=FALSE}
-knitr::include_graphics("../man/figures/CTCF_hg38_qvalue.png")
-```
-
-one may decide to use a more stringent cutoff. E.g., filtering by q-value less than
-0.3 filters out more than half of the predicted sites. The remaining sites may be
-considered as high-confidence CTCF sites.
-
-```{r}
-# Check length before filtering
-length(CTCF_hg38)
-# Filter and check length after filtering
-CTCF_hg38 <- CTCF_hg38[CTCF_hg38$q.value < 0.3]
-length(CTCF_hg38)
+knitr::include_graphics("../man/figures/Figure_liftOverJaccard.png")
 ```
 
 
-## CTCF GRanges for other organisms
-
-```{r eval = FALSE}
-# hg19 CTCF coordinates
-CTCF_hg19 <- query_data[["AH95565"]]
-# mm9 CTCF coordinates
-CTCF_mm9 <- query_data[["AH95567"]]
-# mm10 CTCF coordinates
-CTCF_mm10 <- query_data[["AH95568"]]
-```
-
-See [../inst/scripts/make-data.R](inst/scripts/make-data.R) how to create the CTCF 
-GRanges objects.
+Our results suggest that liftOver is a viable alternative to obtain CTCF genomic
+annotations for different genome assemblies. We provide 
+[CTCFBSDB](https://insulatordb.uthsc.edu/) data converted to hg19 and hg38 
+genome assemblies.
 
 
-## Citation
 
-Below is the citation output from using `citation('CTCF')` in R. Please
-run this yourself to check for any updates on how to cite __CTCF__.
-
-```{r 'citation', eval = requireNamespace('CTCF')}
-print(citation("CTCF"), bibtex = TRUE)
-```
 
 Date the vignette was generated.
 
