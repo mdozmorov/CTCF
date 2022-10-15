@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) 
 <!-- [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/CTCF.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/CTCF) [![R-CMD-check-bioc](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml) -->
 
-`CTCF` defines an AnnotationHub resource representing genomic coordinates 
+`r BiocStyle::Biocpkg('BiocCheck')` defines an AnnotationHub resource representing genomic coordinates 
 of [FIMO](https://meme-suite.org/meme/doc/fimo.html)-predicted CTCF binding 
 sites for human and mouse genomes, including the 
 [Telomere-to-Telomere](https://github.com/marbl/CHM13) and [mm39](http://genomeref.blogspot.com/2020/07/grcm39-new-mouse-reference-genome.html)
@@ -37,8 +37,6 @@ The CTCF GRanges are named as `<assembly>.<Database>`. The FIMO-predicted data
 includes extra columns with motif name, score, p-value, q-value, and the motif 
 sequence.
 
-## Installation instructions
-
 **Please, note that the updated CTCF objects will be available in 
 Bioconductor/AnnotationHub 3.16.** To test the following code, use the 
 `bioconductor::devel` Docker image. Run:
@@ -47,16 +45,20 @@ docker run -e PASSWORD=password -p 8787:8787 -d --rm -v $(pwd):/home/rstudio bio
 ```
 Open http://localhost:8787 and login using `rstudio/password` credentials.
 
+## Installation instructions
+
 Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then 
-install `CTCF` from [Bioconductor](http://bioconductor.org/) using the following 
-code:
+install `r BiocStyle::Biocpkg('AnnotationHub')` from [Bioconductor](http://bioconductor.org/) 
+using the following code:
 
 ```{r 'install', eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
-
-BiocManager::install("CTCF") # Use version = "devel" for the latest version
+BiocManager::install("AnnotationHub") 
+# Additional packages
+BiocManager::install("GenomicRanges")
+BiocManager::install("plyranges")
 ```
 
 ## Example
@@ -68,7 +70,7 @@ query_data <- subset(ah, preparerclass=="CTCF")
 # Explore the AnnotationHub object
 query_data
 # Get the list of data providers
-query_data$dataprovider %>% unique
+query_data$dataprovider %>% unique()
 ```
 
 We can find CTCF sites identified using JASPAR 2022 database in hg38 human genome
@@ -81,25 +83,43 @@ subset(query_data, species == "Homo sapiens" &
 # subset(query_data, species == "Mus musculus" & genome == "mm10" & dataprovider == "JASPAR 2022")
 ```
 
-The `hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData` object contains 
+The `hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2` object contains 
 CTCF sites detected using the
-[all three CTCF PWMs](https://jaspar.genereg.net/search?q=CTCF&collection=all&tax_group=all&tax_id=9606&type=all&class=all&family=all&version=all).
-The `hg38.MA0139.1.RData` object contains CTCF sites detected using the most
+[all three CTCF PWMs](https://jaspar.genereg.net/search?q=CTCF&collection=all&tax_group=all&tax_id=9606&type=all&class=all&family=all&version=all). To retrieve, we'll use:
+```{r}
+# hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2
+CTCF_hg38_all <- query_data[["AH104727"]]
+CTCF_hg38_all
+```
+<!--
+The `hg38.MA0139.1` object contains CTCF sites detected using the most
 popular [MA0139.1](https://jaspar.genereg.net/matrix/MA0139.1/) CTCF PWM. 
-To retrieve it, we'll use:
+To retrieve:
 
 ```{r}
+# hg38.MA0139.1
 CTCF_hg38 <- query_data[["AH104729"]]
 CTCF_hg38
+```
+
+It is always advisable to sort GRanges objects and keep standard chromsomes:
+
+```{r}
+suppressMessages(library(plyranges))
+CTCF_hg38_all <- CTCF_hg38_all %>% keepStandardChromosomes() %>% sort()
+CTCF_hg38 <- CTCF_hg38 %>% keepStandardChromosomes() %>% sort()
 ```
 
 Note that the [FIMO](https://meme-suite.org/meme/doc/fimo.html) tool detects 
 CTCF binding sites using the 1e-4 p-value threshold by default (the more significant
 p-value corresponds to the more confidently detected CTCF motif). We found that
-this threshold is too permissive. Using the 
+this threshold may be too permissive. Using the 
 [ENCODE SCREEN](https://screen.encodeproject.org/) database as ground truth,
 we found 1e-6 as the optimal threshold providing approximately 80% true positive
-rate. 
+rate. However, less significant CTCF motifs may be cell type-specific or have 
+weaker CTCF binding and therefore be missed by conventional peak callers.
+If cell type-specific CTCF binding is of interest, we recommend exploring
+less significant CTCF sites.
 
 ```{r echo=FALSE}
 knitr::include_graphics("man/figures/Figure_human_pvalues_threshold.png")
@@ -108,23 +128,83 @@ knitr::include_graphics("man/figures/Figure_human_pvalues_threshold.png")
 To filter the GRanges object and keep high-confidence CTCF sites, use:
 
 ```{r}
-suppressMessages(library(plyranges))
 # Check length before filtering
 print(paste("Number of CTCF motifs at the default 1e-4 threshold:", length(CTCF_hg38)))
 # Filter and check length after filtering
 CTCF_hg38_filtered <- CTCF_hg38 %>% plyranges::filter(pvalue < 1e-6)
 print(paste("Number of CTCF motifs at the 1e-6 threshold:", length(CTCF_hg38_filtered)))
+# Similarly, filter
+CTCF_hg38_all_filtered <- CTCF_hg38_all %>% plyranges::filter(pvalue < 1e-6)
 ```
 
-We also recommend merging overlapping CTCF motifs. Overlapping motifs frequently
-occur when using several PWMs (e.g., three PWMs from JASPAR 2022 used to create
-`hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData` ). 
+Given some databases provide multiple CTCF PWMs, one CTCF site may be detected 
+multiple times resulting in overlapping CTCF sites. For example, the proportion
+of overlapping CTCF sites in the `CTCF_hg38_all_filtered` object containing CTCF
+sites detected by three matrices nearly 40%:
 
 ```{r}
-CTCF_hg38_filtered_reduced <- CTCF_hg38_filtered %>% plyranges::reduce_ranges()
-print(paste("Number of CTCF motifs at the 1e-6 threshold AND reduced:", length(CTCF_hg38_filtered_reduced)))
+# Proportion of overlapping enrtries
+tmp <- findOverlaps(CTCF_hg38_all, CTCF_hg38_all)
+prop_overlap <- sort(table(queryHits(tmp)) %>% table(), decreasing = TRUE)
+sum(prop_overlap[which(names(prop_overlap) != "1")]) / length(CTCF_hg38_all)
 ```
 
+The proportion of overlapping CTCF sites in the `CTCF_hg38_filtered` object
+containing CTCF sites detected by the [MA0139.1](https://jaspar.genereg.net/matrix/MA0139.1/) 
+matrix is less than 2.5%
+
+```{r}
+tmp <- findOverlaps(CTCF_hg38, CTCF_hg38)
+prop_overlap <- sort(table(queryHits(tmp)) %>% table(), decreasing = TRUE)
+sum(prop_overlap[which(names(prop_overlap) != "1")]) / length(CTCF_hg38)
+```
+
+Reducing them (merging overlapping CTCF sites), combined with 1E-6 cutoff 
+filtering, yields the number of CTCF sites comparable to previously reported.
+
+```{r}
+print(paste("Number of CTCF_hg38 motifs at the 1e-6 threshold AND reduced:", length(CTCF_hg38_filtered %>% reduce())))
+print(paste("Number of CTCF_hg38_all motifs at the 1e-6 threshold AND reduced:", length(CTCF_hg38_all_filtered %>% reduce())))
+```
+
+However, regulatory elements with CTCF proteins co-occupying adjacent/overlapping 
+CTCF binding motifs were shown to be functionally and structurally different from 
+those with single CTCF motifs. We provide non-reduced CTCF data and advise 
+considering overlap of CTCF sites depending on the study's goal. 
+
+# liftOver of CTCF coordinates
+
+As genome assemblies for model organisms continue to improve, CTCF sites for 
+previous genome assemblies become obsolete. Typically, the actual genome 
+sequence changes little, leading to changes in genomic coordinates.
+The [liftOver](https://genome.ucsc.edu/cgi-bin/hgLiftOver)
+method allows for conversion of genomic coordinates between genome assemblies.
+
+Some carefully curated CTCF sites are available only for older genome assemblies.
+Examples include the data from [CTCFBSDB](https://insulatordb.uthsc.edu/),
+available for hg18 and mm8 genome assemblies.
+
+To investigate whether liftOver of CTCF sites from older genome assemblies is
+a viable option, we tested for overlap between CTCF sites directly detected in
+specific genome assemblies with those lifted over. We detected CTCF sites using
+the [MA0139.1](https://jaspar.genereg.net/matrix/MA0139.1/) PWM from JASPAR 2022 
+database in hg18, hg19, hg38, and T2T genome assemblies and converted their 
+genomic coordinates using the corresponding liftOver chains 
+([download_liftOver.sh](https://github.com/dozmorovlab/CTCF.dev/blob/main/scripts/download_liftOver.sh) 
+and [convert_liftOver.sh](https://github.com/dozmorovlab/CTCF.dev/blob/main/scripts/convert_liftOver.sh)
+scripts). We observed high Jaccard overlap among CTCF sites detected in the 
+original genome assemblies or lifted over. 
+
+**Jaccard overlaps among CTCF binding sites detected in the original and liftOver human genome assemblies.** CTCF sites were detected using JASPAR 2022 MA0139.1 PWM. The correlogram was clustered using Euclidean distance and Ward.D clustering . White-red gradient indicate low-to-high Jaccard overlaps. Jaccard values are shown in the corresponding cells.
+
+```{r echo=FALSE}
+knitr::include_graphics("man/figures/Figure_liftOverJaccard.png")
+```
+
+Our results suggest that liftOver is a viable alternative to obtain CTCF genomic
+annotations for different genome assemblies. We provide 
+[CTCFBSDB](https://insulatordb.uthsc.edu/) data converted to hg19 and hg38 
+genome assemblies.
 
 # CTCF Position Weight Matrices
 
@@ -172,7 +252,7 @@ run this yourself to check for any updates on how to cite __CTCF__.
 print(citation("CTCF"), bibtex = TRUE)
 ```
 
-Please note that the `CTCF` was only made possible thanks to many other R and 
+Please note that the `r BiocStyle::Biocpkg('BiocCheck')` was only made possible thanks to many other R and 
 bioinformatics software authors, which are cited either in the vignettes and/or 
 the paper(s) describing this package.
 
@@ -191,3 +271,4 @@ This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
 ## Code of Conduct
 
 Please note that the CTCF project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
+-->
