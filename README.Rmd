@@ -91,7 +91,6 @@ CTCF sites detected using the
 CTCF_hg38_all <- query_data[["AH104727"]]
 CTCF_hg38_all
 ```
-<!--
 The `hg38.MA0139.1` object contains CTCF sites detected using the most
 popular [MA0139.1](https://jaspar.genereg.net/matrix/MA0139.1/) CTCF PWM. 
 To retrieve:
@@ -271,4 +270,3 @@ This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
 ## Code of Conduct
 
 Please note that the CTCF project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
--->
