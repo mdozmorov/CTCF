@@ -1,3 +1,7 @@
+# CTCF 0.99.6 (2022-10-15)
+- Update README and vignette: installation instructions, examples of filtering
+  by p-value, merging, liftover
+
 # CTCF 0.99.5 (2022-07-20)
 - Major update
   + New 51 GRanges objects with predicted and experimental CTCF sites
