@@ -51,6 +51,8 @@ Suggests:
     rmarkdown,
     knitr,
     AnnotationHub,
+    GenomicRanges,
+    plyranges,
     sessioninfo
 VignetteBuilder: knitr
 biocViews: AnnotationData, AnnotationHub, FunctionalAnnotation, GenomicSequence

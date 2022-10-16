@@ -65,7 +65,7 @@ Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then
 install `r BiocStyle::Biocpkg('AnnotationHub')` from [Bioconductor](http://bioconductor.org/) 
 using the following code:
 
-```{r 'install', eval = TRUE}
+```{r 'install', eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
