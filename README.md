@@ -49,10 +49,36 @@ from [Bioconductor](http://bioconductor.org/) using the following code:
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
-BiocManager::install("AnnotationHub") 
+BiocManager::install("AnnotationHub", update = FALSE) 
+#> 'getOption("repos")' replaces Bioconductor standard repositories, see
+#> '?repositories' for details
+#> 
+#> replacement repositories:
+#>     CRAN: https://packagemanager.rstudio.com/cran/__linux__/focal/2022-06-22
+#> Bioconductor version 3.16 (BiocManager 1.30.18), R 4.2.0 (2022-04-22)
+#> Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to
+#>   re-install: 'AnnotationHub'
 # Additional packages
-BiocManager::install("GenomicRanges")
-BiocManager::install("plyranges")
+BiocManager::install("GenomicRanges", update = FALSE)
+#> 'getOption("repos")' replaces Bioconductor standard repositories, see
+#> '?repositories' for details
+#> 
+#> replacement repositories:
+#>     CRAN: https://packagemanager.rstudio.com/cran/__linux__/focal/2022-06-22
+#> 
+#> Bioconductor version 3.16 (BiocManager 1.30.18), R 4.2.0 (2022-04-22)
+#> Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to
+#>   re-install: 'GenomicRanges'
+BiocManager::install("plyranges", update = FALSE)
+#> 'getOption("repos")' replaces Bioconductor standard repositories, see
+#> '?repositories' for details
+#> 
+#> replacement repositories:
+#>     CRAN: https://packagemanager.rstudio.com/cran/__linux__/focal/2022-06-22
+#> 
+#> Bioconductor version 3.16 (BiocManager 1.30.18), R 4.2.0 (2022-04-22)
+#> Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to
+#>   re-install: 'plyranges'
 ```
 
 ## Example
@@ -450,6 +476,22 @@ run this yourself to check for any updates on how to cite **CTCF**.
 
 ``` r
 print(citation("CTCF"), bibtex = TRUE)
+#> 
+#> To cite package 'CTCF' in publications use:
+#> 
+#>   Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M
+#>   (2022). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package
+#>   version 0.99.6, <https://github.com/mdozmorov/CTCF>.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {CTCF},
+#>     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},
+#>     year = {2022},
+#>     url = {https://github.com/mdozmorov/CTCF},
+#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.6},
+#>   }
 ```
 
 Please note that the
