@@ -50,35 +50,9 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
 BiocManager::install("AnnotationHub", update = FALSE) 
-#> 'getOption("repos")' replaces Bioconductor standard repositories, see
-#> '?repositories' for details
-#> 
-#> replacement repositories:
-#>     CRAN: https://packagemanager.rstudio.com/cran/__linux__/focal/2022-06-22
-#> Bioconductor version 3.16 (BiocManager 1.30.18), R 4.2.0 (2022-04-22)
-#> Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to
-#>   re-install: 'AnnotationHub'
 # Additional packages
 BiocManager::install("GenomicRanges", update = FALSE)
-#> 'getOption("repos")' replaces Bioconductor standard repositories, see
-#> '?repositories' for details
-#> 
-#> replacement repositories:
-#>     CRAN: https://packagemanager.rstudio.com/cran/__linux__/focal/2022-06-22
-#> 
-#> Bioconductor version 3.16 (BiocManager 1.30.18), R 4.2.0 (2022-04-22)
-#> Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to
-#>   re-install: 'GenomicRanges'
 BiocManager::install("plyranges", update = FALSE)
-#> 'getOption("repos")' replaces Bioconductor standard repositories, see
-#> '?repositories' for details
-#> 
-#> replacement repositories:
-#>     CRAN: https://packagemanager.rstudio.com/cran/__linux__/focal/2022-06-22
-#> 
-#> Bioconductor version 3.16 (BiocManager 1.30.18), R 4.2.0 (2022-04-22)
-#> Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to
-#>   re-install: 'plyranges'
 ```
 
 ## Example
