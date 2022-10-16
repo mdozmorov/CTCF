@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">CTCF</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.6</span>
       </span>
     </div>
 
@@ -86,132 +86,233 @@
 <div class="page-header"><h1 id="ctcf">CTCF<a class="anchor" aria-label="anchor" href="#ctcf"></a>
 </h1></div>
 
-<p><code>CTCF</code> defines an AnnotationHub resource representing genomic coordinates of <a href="https://meme-suite.org/meme/doc/fimo.html" class="external-link">FIMO</a>-predicted CTCF binding sites for human and mouse genomes, including the <a href="https://github.com/marbl/CHM13" class="external-link">Telomere-to-Telomere</a> and <a href="http://genomeref.blogspot.com/2020/07/grcm39-new-mouse-reference-genome.html" class="external-link">mm39</a> genome assemblies. It also includes experimentally defined CTCF-bound cis-regulatory elements from <a href="https://screen.encodeproject.org/" class="external-link">ENCODE SCREEN</a>.</p>
+<p><em><a href="https://bioconductor.org/packages/3.16/BiocCheck" class="external-link">BiocCheck</a></em> defines an AnnotationHub resource representing genomic coordinates of <a href="https://meme-suite.org/meme/doc/fimo.html" class="external-link">FIMO</a>-predicted CTCF binding sites for human and mouse genomes, including the <a href="https://github.com/marbl/CHM13" class="external-link">Telomere-to-Telomere</a> and <a href="http://genomeref.blogspot.com/2020/07/grcm39-new-mouse-reference-genome.html" class="external-link">mm39</a> genome assemblies. It also includes experimentally defined CTCF-bound cis-regulatory elements from <a href="https://screen.encodeproject.org/" class="external-link">ENCODE SCREEN</a>.</p>
 <p>TL;DR - for human hg38 genome assembly, use <code>hg38.MA0139.1.RData</code> (“AH104729”). For mouse mm10 genome assembly, use <code>mm10.MA0139.1.RData</code> (“AH104755”). For <a href="https://screen.encodeproject.org/" class="external-link">ENCODE SCREEN</a> data, use <code>hg38.SCREEN.GRCh38_CTCF.RData</code> (“AH104730”) or <code>mm10.SCREEN.mm10_CTCF.RData</code> (“AH104756”) objects.</p>
 <p>The CTCF GRanges are named as <code>&lt;assembly&gt;.&lt;Database&gt;</code>. The FIMO-predicted data includes extra columns with motif name, score, p-value, q-value, and the motif sequence.</p>
-<div class="section level2">
-<h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
-</h2>
 <p><strong>Please, note that the updated CTCF objects will be available in Bioconductor/AnnotationHub 3.16.</strong> To test the following code, use the <code>bioconductor::devel</code> Docker image. Run:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=password <span class="at">-p</span> 8787:8787 <span class="at">-d</span> <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/home/rstudio bioconductor/bioconductor_docker:devel</span></code></pre></div>
 <p>Open <a href="http://localhost:8787" class="external-link uri">http://localhost:8787</a> and login using <code>rstudio/password</code> credentials.</p>
-<p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/" class="external-link">CRAN</a>. Then install <code>CTCF</code> from <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> using the following code:</p>
+<div class="section level2">
+<h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
+</h2>
+<p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/" class="external-link">CRAN</a>. Then install <em><a href="https://bioconductor.org/packages/3.16/AnnotationHub" class="external-link">AnnotationHub</a></em> from <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> using the following code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"CTCF"</span><span class="op">)</span> <span class="co"># Use version = "devel" for the latest version</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"AnnotationHub"</span>, update <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; 'getOption("repos")' replaces Bioconductor standard repositories, see</span></span>
+<span><span class="co">#&gt; '?repositories' for details</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; replacement repositories:</span></span>
+<span><span class="co">#&gt;     CRAN: https://packagemanager.rstudio.com/cran/__linux__/focal/2022-06-22</span></span>
+<span><span class="co">#&gt; Bioconductor version 3.16 (BiocManager 1.30.18), R 4.2.0 (2022-04-22)</span></span>
+<span><span class="co">#&gt; Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to</span></span>
+<span><span class="co">#&gt;   re-install: 'AnnotationHub'</span></span>
+<span><span class="co"># Additional packages</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"GenomicRanges"</span>, update <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'getOption("repos")' replaces Bioconductor standard repositories, see</span></span>
+<span><span class="co">#&gt; '?repositories' for details</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; replacement repositories:</span></span>
+<span><span class="co">#&gt;     CRAN: https://packagemanager.rstudio.com/cran/__linux__/focal/2022-06-22</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bioconductor version 3.16 (BiocManager 1.30.18), R 4.2.0 (2022-04-22)</span></span>
+<span><span class="co">#&gt; Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to</span></span>
+<span><span class="co">#&gt;   re-install: 'GenomicRanges'</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"plyranges"</span>, update <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'getOption("repos")' replaces Bioconductor standard repositories, see</span></span>
+<span><span class="co">#&gt; '?repositories' for details</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; replacement repositories:</span></span>
+<span><span class="co">#&gt;     CRAN: https://packagemanager.rstudio.com/cran/__linux__/focal/2022-06-22</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bioconductor version 3.16 (BiocManager 1.30.18), R 4.2.0 (2022-04-22)</span></span>
+<span><span class="co">#&gt; Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to</span></span>
+<span><span class="co">#&gt;   re-install: 'plyranges'</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">AnnotationHub</span><span class="op">)</span><span class="op">)</span>
-<span class="va">ah</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationHub/man/AnnotationHub-class.html" class="external-link">AnnotationHub</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; snapshotDate(): 2022-07-22</span>
-<span class="va">query_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ah</span>, <span class="va">preparerclass</span><span class="op">==</span><span class="st">"CTCF"</span><span class="op">)</span>
-<span class="co"># Explore the AnnotationHub object</span>
-<span class="va">query_data</span>
-<span class="co">#&gt; AnnotationHub with 51 records</span>
-<span class="co">#&gt; # snapshotDate(): 2022-07-22</span>
-<span class="co">#&gt; # $dataprovider: JASPAR 2022, CTCFBSDB 2.0, SwissRegulon, Jolma 2013, HOCOMO...</span>
-<span class="co">#&gt; # $species: Homo sapiens, Mus musculus</span>
-<span class="co">#&gt; # $rdataclass: GRanges</span>
-<span class="co">#&gt; # additional mcols(): taxonomyid, genome, description,</span>
-<span class="co">#&gt; #   coordinate_1_based, maintainer, rdatadateadded, preparerclass, tags,</span>
-<span class="co">#&gt; #   rdatapath, sourceurl, sourcetype </span>
-<span class="co">#&gt; # retrieve records with, e.g., 'object[["AH104716"]]' </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;              title                                                 </span>
-<span class="co">#&gt;   AH104716 | T2T.CIS_BP_2.00_Homo_sapiens.RData                    </span>
-<span class="co">#&gt;   AH104717 | T2T.CTCFBSDB_PWM.RData                                </span>
-<span class="co">#&gt;   AH104718 | T2T.HOCOMOCOv11_core_HUMAN_mono_meme_format.RData     </span>
-<span class="co">#&gt;   AH104719 | T2T.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData</span>
-<span class="co">#&gt;   AH104720 | T2T.Jolma2013.RData                                   </span>
-<span class="co">#&gt;   ...        ...                                                   </span>
-<span class="co">#&gt;   AH104762 | mm9.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData</span>
-<span class="co">#&gt;   AH104763 | mm9.Jolma2013.RData                                   </span>
-<span class="co">#&gt;   AH104764 | mm9.MA0139.1.RData                                    </span>
-<span class="co">#&gt;   AH104765 | mm9.SwissRegulon_human_and_mouse.RData                </span>
-<span class="co">#&gt;   AH104766 | mm8.CTCFBSDB.CTCF_predicted_mouse.RData</span>
-<span class="co"># Get the list of data providers</span>
-<span class="va">query_data</span><span class="op">$</span><span class="va">dataprovider</span> <span class="op">%&gt;%</span> <span class="va">unique</span>
-<span class="co">#&gt; [1] "CIS-BP"           "CTCFBSDB 2.0"     "HOCOMOCO v11"     "JASPAR 2022"     </span>
-<span class="co">#&gt; [5] "Jolma 2013"       "SwissRegulon"     "ENCODE SCREEN v3"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">AnnotationHub</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'AnnotationHub' was built under R version 4.2.1</span></span>
+<span><span class="co">#&gt; Warning: package 'BiocGenerics' was built under R version 4.2.1</span></span>
+<span><span class="co">#&gt; Warning: package 'BiocFileCache' was built under R version 4.2.1</span></span>
+<span><span class="va">ah</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationHub/man/AnnotationHub-class.html" class="external-link">AnnotationHub</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; snapshotDate(): 2022-09-30</span></span>
+<span><span class="va">query_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ah</span>, <span class="va">preparerclass</span><span class="op">==</span><span class="st">"CTCF"</span><span class="op">)</span></span>
+<span><span class="co"># Explore the AnnotationHub object</span></span>
+<span><span class="va">query_data</span></span>
+<span><span class="co">#&gt; AnnotationHub with 51 records</span></span>
+<span><span class="co">#&gt; # snapshotDate(): 2022-09-30</span></span>
+<span><span class="co">#&gt; # $dataprovider: JASPAR 2022, CTCFBSDB 2.0, SwissRegulon, Jolma 2013, HOCOMO...</span></span>
+<span><span class="co">#&gt; # $species: Homo sapiens, Mus musculus</span></span>
+<span><span class="co">#&gt; # $rdataclass: GRanges</span></span>
+<span><span class="co">#&gt; # additional mcols(): taxonomyid, genome, description,</span></span>
+<span><span class="co">#&gt; #   coordinate_1_based, maintainer, rdatadateadded, preparerclass, tags,</span></span>
+<span><span class="co">#&gt; #   rdatapath, sourceurl, sourcetype </span></span>
+<span><span class="co">#&gt; # retrieve records with, e.g., 'object[["AH104716"]]' </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;              title                                                 </span></span>
+<span><span class="co">#&gt;   AH104716 | T2T.CIS_BP_2.00_Homo_sapiens.RData                    </span></span>
+<span><span class="co">#&gt;   AH104717 | T2T.CTCFBSDB_PWM.RData                                </span></span>
+<span><span class="co">#&gt;   AH104718 | T2T.HOCOMOCOv11_core_HUMAN_mono_meme_format.RData     </span></span>
+<span><span class="co">#&gt;   AH104719 | T2T.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData</span></span>
+<span><span class="co">#&gt;   AH104720 | T2T.Jolma2013.RData                                   </span></span>
+<span><span class="co">#&gt;   ...        ...                                                   </span></span>
+<span><span class="co">#&gt;   AH104762 | mm9.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData</span></span>
+<span><span class="co">#&gt;   AH104763 | mm9.Jolma2013.RData                                   </span></span>
+<span><span class="co">#&gt;   AH104764 | mm9.MA0139.1.RData                                    </span></span>
+<span><span class="co">#&gt;   AH104765 | mm9.SwissRegulon_human_and_mouse.RData                </span></span>
+<span><span class="co">#&gt;   AH104766 | mm8.CTCFBSDB.CTCF_predicted_mouse.RData</span></span>
+<span><span class="co"># Get the list of data providers</span></span>
+<span><span class="va">query_data</span><span class="op">$</span><span class="va">dataprovider</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "CIS-BP"           "CTCFBSDB 2.0"     "HOCOMOCO v11"     "JASPAR 2022"     </span></span>
+<span><span class="co">#&gt; [5] "Jolma 2013"       "SwissRegulon"     "ENCODE SCREEN v3"</span></span></code></pre></div>
 <p>We can find CTCF sites identified using JASPAR 2022 database in hg38 human genome</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">query_data</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Homo sapiens"</span> <span class="op">&amp;</span> 
-                   <span class="va">genome</span> <span class="op">==</span> <span class="st">"hg38"</span> <span class="op">&amp;</span> 
-                   <span class="va">dataprovider</span> <span class="op">==</span> <span class="st">"JASPAR 2022"</span><span class="op">)</span>
-<span class="co">#&gt; AnnotationHub with 2 records</span>
-<span class="co">#&gt; # snapshotDate(): 2022-07-22</span>
-<span class="co">#&gt; # $dataprovider: JASPAR 2022</span>
-<span class="co">#&gt; # $species: Homo sapiens</span>
-<span class="co">#&gt; # $rdataclass: GRanges</span>
-<span class="co">#&gt; # additional mcols(): taxonomyid, genome, description,</span>
-<span class="co">#&gt; #   coordinate_1_based, maintainer, rdatadateadded, preparerclass, tags,</span>
-<span class="co">#&gt; #   rdatapath, sourceurl, sourcetype </span>
-<span class="co">#&gt; # retrieve records with, e.g., 'object[["AH104727"]]' </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;              title                                                  </span>
-<span class="co">#&gt;   AH104727 | hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData</span>
-<span class="co">#&gt;   AH104729 | hg38.MA0139.1.RData</span>
-<span class="co"># Same for mm10 mouse genome</span>
-<span class="co"># subset(query_data, species == "Mus musculus" &amp; genome == "mm10" &amp; dataprovider == "JASPAR 2022")</span></code></pre></div>
-<p>The <code>hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData</code> object contains CTCF sites detected using the <a href="https://jaspar.genereg.net/search?q=CTCF&amp;collection=all&amp;tax_group=all&amp;tax_id=9606&amp;type=all&amp;class=all&amp;family=all&amp;version=all" class="external-link">all three CTCF PWMs</a>. The <code>hg38.MA0139.1.RData</code> object contains CTCF sites detected using the most popular <a href="https://jaspar.genereg.net/matrix/MA0139.1/" class="external-link">MA0139.1</a> CTCF PWM. To retrieve it, we’ll use:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">query_data</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Homo sapiens"</span> <span class="op">&amp;</span> </span>
+<span>                   <span class="va">genome</span> <span class="op">==</span> <span class="st">"hg38"</span> <span class="op">&amp;</span> </span>
+<span>                   <span class="va">dataprovider</span> <span class="op">==</span> <span class="st">"JASPAR 2022"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; AnnotationHub with 2 records</span></span>
+<span><span class="co">#&gt; # snapshotDate(): 2022-09-30</span></span>
+<span><span class="co">#&gt; # $dataprovider: JASPAR 2022</span></span>
+<span><span class="co">#&gt; # $species: Homo sapiens</span></span>
+<span><span class="co">#&gt; # $rdataclass: GRanges</span></span>
+<span><span class="co">#&gt; # additional mcols(): taxonomyid, genome, description,</span></span>
+<span><span class="co">#&gt; #   coordinate_1_based, maintainer, rdatadateadded, preparerclass, tags,</span></span>
+<span><span class="co">#&gt; #   rdatapath, sourceurl, sourcetype </span></span>
+<span><span class="co">#&gt; # retrieve records with, e.g., 'object[["AH104727"]]' </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;              title                                                  </span></span>
+<span><span class="co">#&gt;   AH104727 | hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData</span></span>
+<span><span class="co">#&gt;   AH104729 | hg38.MA0139.1.RData</span></span>
+<span><span class="co"># Same for mm10 mouse genome</span></span>
+<span><span class="co"># subset(query_data, species == "Mus musculus" &amp; genome == "mm10" &amp; dataprovider == "JASPAR 2022")</span></span></code></pre></div>
+<p>The <code>hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2</code> object contains CTCF sites detected using the <a href="https://jaspar.genereg.net/search?q=CTCF&amp;collection=all&amp;tax_group=all&amp;tax_id=9606&amp;type=all&amp;class=all&amp;family=all&amp;version=all" class="external-link">all three CTCF PWMs</a>. To retrieve, we’ll use:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">CTCF_hg38</span> <span class="op">&lt;-</span> <span class="va">query_data</span><span class="op">[[</span><span class="st">"AH104729"</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; loading from cache</span>
-<span class="co">#&gt; require("GenomicRanges")</span>
-<span class="va">CTCF_hg38</span>
-<span class="co">#&gt; GRanges object with 887980 ranges and 5 metadata columns:</span>
-<span class="co">#&gt;            seqnames            ranges strand |        name     score    pvalue</span>
-<span class="co">#&gt;               &lt;Rle&gt;         &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="co">#&gt;        [1]     chr1       11414-11432      + |    MA0139.1   9.11475  5.65e-05</span>
-<span class="co">#&gt;        [2]     chr1       14316-14334      + |    MA0139.1   7.83607  9.71e-05</span>
-<span class="co">#&gt;        [3]     chr1       15439-15457      + |    MA0139.1   8.00000  9.08e-05</span>
-<span class="co">#&gt;        [4]     chr1       16603-16621      + |    MA0139.1   8.04918  8.89e-05</span>
-<span class="co">#&gt;        [5]     chr1       16651-16669      + |    MA0139.1  11.42620  1.97e-05</span>
-<span class="co">#&gt;        ...      ...               ...    ... .         ...       ...       ...</span>
-<span class="co">#&gt;   [887976]     chrY 57209918-57209936      - |    MA0139.1  11.42620  1.97e-05</span>
-<span class="co">#&gt;   [887977]     chrY 57209966-57209984      - |    MA0139.1   8.04918  8.89e-05</span>
-<span class="co">#&gt;   [887978]     chrY 57211133-57211151      - |    MA0139.1   8.00000  9.08e-05</span>
-<span class="co">#&gt;   [887979]     chrY 57212256-57212274      - |    MA0139.1   7.83607  9.71e-05</span>
-<span class="co">#&gt;   [887980]     chrY 57215146-57215164      - |    MA0139.1   9.11475  5.65e-05</span>
-<span class="co">#&gt;               qvalue            sequence</span>
-<span class="co">#&gt;            &lt;numeric&gt;         &lt;character&gt;</span>
-<span class="co">#&gt;        [1]     0.555 ctggcagctggggacactg</span>
-<span class="co">#&gt;        [2]     0.601 GGACCAACAGGGGCAGGAG</span>
-<span class="co">#&gt;        [3]     0.599 TAGCCTCCAGAGGCCTCAG</span>
-<span class="co">#&gt;        [4]     0.597 CCACCTGAAGGAGACGCGC</span>
-<span class="co">#&gt;        [5]     0.504 TGGCCTACAGGGGCCGCGG</span>
-<span class="co">#&gt;        ...       ...                 ...</span>
-<span class="co">#&gt;   [887976]     0.648 TGGCCTACAGGGGCCGCGG</span>
-<span class="co">#&gt;   [887977]     0.770 CCACCTGAAGGAGACGCGC</span>
-<span class="co">#&gt;   [887978]     0.770 TAGCCTCCAGAGGCCTCAG</span>
-<span class="co">#&gt;   [887979]     0.770 GGACCAACAGGGGCAGGAG</span>
-<span class="co">#&gt;   [887980]     0.726 CTGGCAGCTGGGGACACTG</span>
-<span class="co">#&gt;   -------</span>
-<span class="co">#&gt;   seqinfo: 24 sequences from hg38 genome</span></code></pre></div>
-<p>Note that the <a href="https://meme-suite.org/meme/doc/fimo.html" class="external-link">FIMO</a> tool detects CTCF binding sites using the 1e-4 p-value threshold by default (the more significant p-value corresponds to the more confidently detected CTCF motif). We found that this threshold is too permissive. Using the <a href="https://screen.encodeproject.org/" class="external-link">ENCODE SCREEN</a> database as ground truth, we found 1e-6 as the optimal threshold providing approximately 80% true positive rate.</p>
+<code class="sourceCode R"><span><span class="co"># hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2</span></span>
+<span><span class="va">CTCF_hg38_all</span> <span class="op">&lt;-</span> <span class="va">query_data</span><span class="op">[[</span><span class="st">"AH104727"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; loading from cache</span></span>
+<span><span class="co">#&gt; require("GenomicRanges")</span></span>
+<span><span class="co">#&gt; Warning: package 'GenomicRanges' was built under R version 4.2.1</span></span>
+<span><span class="co">#&gt; Warning: package 'S4Vectors' was built under R version 4.2.1</span></span>
+<span><span class="co">#&gt; Warning: package 'IRanges' was built under R version 4.2.1</span></span>
+<span><span class="va">CTCF_hg38_all</span></span>
+<span><span class="co">#&gt; GRanges object with 3093041 ranges and 5 metadata columns:</span></span>
+<span><span class="co">#&gt;             seqnames            ranges strand |                   name</span></span>
+<span><span class="co">#&gt;                &lt;Rle&gt;         &lt;IRanges&gt;  &lt;Rle&gt; |            &lt;character&gt;</span></span>
+<span><span class="co">#&gt;         [1]     chr1       11212-11246      + | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;         [2]     chr1       11399-11432      + | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;         [3]     chr1       11414-11432      + | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;         [4]     chr1       12373-12406      + | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;         [5]     chr1       13507-13541      + | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;         ...      ...               ...    ... .                    ...</span></span>
+<span><span class="co">#&gt;   [3093037]     chrY 57215115-57215148      - | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;   [3093038]     chrY 57215146-57215164      - | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;   [3093039]     chrY 57215146-57215179      - | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;   [3093040]     chrY 57215332-57215366      - | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;   [3093041]     chrY 57216319-57216352      - | JASPAR2022_CORE_vert..</span></span>
+<span><span class="co">#&gt;                 score    pvalue    qvalue               sequence</span></span>
+<span><span class="co">#&gt;             &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;            &lt;character&gt;</span></span>
+<span><span class="co">#&gt;         [1]   7.77064  5.25e-05     0.459 gtgctgtgccagggcgcccc..</span></span>
+<span><span class="co">#&gt;         [2]  18.48780  2.54e-07     0.118 cagcacgcccacctgctggc..</span></span>
+<span><span class="co">#&gt;         [3]   9.11475  5.65e-05     0.555    ctggcagctggggacactg</span></span>
+<span><span class="co">#&gt;         [4]   9.21951  5.25e-05     0.421 CAGCAGGTCTGGCTTTGGCC..</span></span>
+<span><span class="co">#&gt;         [5]   9.71560  2.24e-05     0.397 GTGCCCTTCCTTTGCTCTGC..</span></span>
+<span><span class="co">#&gt;         ...       ...       ...       ...                    ...</span></span>
+<span><span class="co">#&gt;   [3093037]   8.06504  9.11e-05     0.614 CTGCTGGGCCCTCTTGCTCC..</span></span>
+<span><span class="co">#&gt;   [3093038]   9.11475  5.65e-05     0.726    CTGGCAGCTGGGGACACTG</span></span>
+<span><span class="co">#&gt;   [3093039]  17.91870  3.72e-07     0.246 CAGCACGCCCGCCTGCTGGC..</span></span>
+<span><span class="co">#&gt;   [3093040]   7.77064  5.25e-05     0.584 GTGCTGTGCCAGGGCGCCCC..</span></span>
+<span><span class="co">#&gt;   [3093041]   8.63415  6.96e-05     0.595 CTGCATTTGCGTTCCGACGC..</span></span>
+<span><span class="co">#&gt;   -------</span></span>
+<span><span class="co">#&gt;   seqinfo: 24 sequences from hg38 genome</span></span></code></pre></div>
+<p>The <code>hg38.MA0139.1</code> object contains CTCF sites detected using the most popular <a href="https://jaspar.genereg.net/matrix/MA0139.1/" class="external-link">MA0139.1</a> CTCF PWM. To retrieve:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># hg38.MA0139.1</span></span>
+<span><span class="va">CTCF_hg38</span> <span class="op">&lt;-</span> <span class="va">query_data</span><span class="op">[[</span><span class="st">"AH104729"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; loading from cache</span></span>
+<span><span class="va">CTCF_hg38</span></span>
+<span><span class="co">#&gt; GRanges object with 887980 ranges and 5 metadata columns:</span></span>
+<span><span class="co">#&gt;            seqnames            ranges strand |        name     score    pvalue</span></span>
+<span><span class="co">#&gt;               &lt;Rle&gt;         &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt; &lt;numeric&gt; &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt;        [1]     chr1       11414-11432      + |    MA0139.1   9.11475  5.65e-05</span></span>
+<span><span class="co">#&gt;        [2]     chr1       14316-14334      + |    MA0139.1   7.83607  9.71e-05</span></span>
+<span><span class="co">#&gt;        [3]     chr1       15439-15457      + |    MA0139.1   8.00000  9.08e-05</span></span>
+<span><span class="co">#&gt;        [4]     chr1       16603-16621      + |    MA0139.1   8.04918  8.89e-05</span></span>
+<span><span class="co">#&gt;        [5]     chr1       16651-16669      + |    MA0139.1  11.42620  1.97e-05</span></span>
+<span><span class="co">#&gt;        ...      ...               ...    ... .         ...       ...       ...</span></span>
+<span><span class="co">#&gt;   [887976]     chrY 57209918-57209936      - |    MA0139.1  11.42620  1.97e-05</span></span>
+<span><span class="co">#&gt;   [887977]     chrY 57209966-57209984      - |    MA0139.1   8.04918  8.89e-05</span></span>
+<span><span class="co">#&gt;   [887978]     chrY 57211133-57211151      - |    MA0139.1   8.00000  9.08e-05</span></span>
+<span><span class="co">#&gt;   [887979]     chrY 57212256-57212274      - |    MA0139.1   7.83607  9.71e-05</span></span>
+<span><span class="co">#&gt;   [887980]     chrY 57215146-57215164      - |    MA0139.1   9.11475  5.65e-05</span></span>
+<span><span class="co">#&gt;               qvalue            sequence</span></span>
+<span><span class="co">#&gt;            &lt;numeric&gt;         &lt;character&gt;</span></span>
+<span><span class="co">#&gt;        [1]     0.555 ctggcagctggggacactg</span></span>
+<span><span class="co">#&gt;        [2]     0.601 GGACCAACAGGGGCAGGAG</span></span>
+<span><span class="co">#&gt;        [3]     0.599 TAGCCTCCAGAGGCCTCAG</span></span>
+<span><span class="co">#&gt;        [4]     0.597 CCACCTGAAGGAGACGCGC</span></span>
+<span><span class="co">#&gt;        [5]     0.504 TGGCCTACAGGGGCCGCGG</span></span>
+<span><span class="co">#&gt;        ...       ...                 ...</span></span>
+<span><span class="co">#&gt;   [887976]     0.648 TGGCCTACAGGGGCCGCGG</span></span>
+<span><span class="co">#&gt;   [887977]     0.770 CCACCTGAAGGAGACGCGC</span></span>
+<span><span class="co">#&gt;   [887978]     0.770 TAGCCTCCAGAGGCCTCAG</span></span>
+<span><span class="co">#&gt;   [887979]     0.770 GGACCAACAGGGGCAGGAG</span></span>
+<span><span class="co">#&gt;   [887980]     0.726 CTGGCAGCTGGGGACACTG</span></span>
+<span><span class="co">#&gt;   -------</span></span>
+<span><span class="co">#&gt;   seqinfo: 24 sequences from hg38 genome</span></span></code></pre></div>
+<p>It is always advisable to sort GRanges objects and keep standard chromsomes:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">plyranges</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">CTCF_hg38_all</span> <span class="op">&lt;-</span> <span class="va">CTCF_hg38_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">keepStandardChromosomes</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">CTCF_hg38</span> <span class="op">&lt;-</span> <span class="va">CTCF_hg38</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">keepStandardChromosomes</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Note that the <a href="https://meme-suite.org/meme/doc/fimo.html" class="external-link">FIMO</a> tool detects CTCF binding sites using the 1e-4 p-value threshold by default (the more significant p-value corresponds to the more confidently detected CTCF motif). We found that this threshold may be too permissive. Using the <a href="https://screen.encodeproject.org/" class="external-link">ENCODE SCREEN</a> database as ground truth, we found 1e-6 as the optimal threshold providing approximately 80% true positive rate. However, less significant CTCF motifs may be cell type-specific or have weaker CTCF binding and therefore be missed by conventional peak callers. If cell type-specific CTCF binding is of interest, we recommend exploring less significant CTCF sites.</p>
 <p><img src="reference/figures/Figure_human_pvalues_threshold.png" width="100%"></p>
 <p>To filter the GRanges object and keep high-confidence CTCF sites, use:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">plyranges</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Check length before filtering</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF motifs at the default 1e-4 threshold:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Number of CTCF motifs at the default 1e-4 threshold: 887980"</span>
-<span class="co"># Filter and check length after filtering</span>
-<span class="va">CTCF_hg38_filtered</span> <span class="op">&lt;-</span> <span class="va">CTCF_hg38</span> <span class="op">%&gt;%</span> <span class="fu">plyranges</span><span class="fu">::</span><span class="fu">filter</span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&lt;</span> <span class="fl">1e-6</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF motifs at the 1e-6 threshold:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38_filtered</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Number of CTCF motifs at the 1e-6 threshold: 21671"</span></code></pre></div>
-<p>We also recommend merging overlapping CTCF motifs. Overlapping motifs frequently occur when using several PWMs (e.g., three PWMs from JASPAR 2022 used to create <code>hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData</code> ).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">CTCF_hg38_filtered_reduced</span> <span class="op">&lt;-</span> <span class="va">CTCF_hg38_filtered</span> <span class="op">%&gt;%</span> <span class="fu">plyranges</span><span class="fu">::</span><span class="fu">reduce_ranges</span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF motifs at the 1e-6 threshold AND reduced:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38_filtered_reduced</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Number of CTCF motifs at the 1e-6 threshold AND reduced: 21616"</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Check length before filtering</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF motifs at the default 1e-4 threshold:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Number of CTCF motifs at the default 1e-4 threshold: 887980"</span></span>
+<span><span class="co"># Filter and check length after filtering</span></span>
+<span><span class="va">CTCF_hg38_filtered</span> <span class="op">&lt;-</span> <span class="va">CTCF_hg38</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">plyranges</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&lt;</span> <span class="fl">1e-6</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF motifs at the 1e-6 threshold:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38_filtered</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Number of CTCF motifs at the 1e-6 threshold: 21671"</span></span>
+<span><span class="co"># Similarly, filter</span></span>
+<span><span class="va">CTCF_hg38_all_filtered</span> <span class="op">&lt;-</span> <span class="va">CTCF_hg38_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">plyranges</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&lt;</span> <span class="fl">1e-6</span><span class="op">)</span></span></code></pre></div>
+<p>Given some databases provide multiple CTCF PWMs, one CTCF site may be detected multiple times resulting in overlapping CTCF sites. For example, the proportion of overlapping CTCF sites in the <code>CTCF_hg38_all_filtered</code> object containing CTCF sites detected by three matrices nearly 40%:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Proportion of overlapping enrtries</span></span>
+<span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/findOverlaps-methods.html" class="external-link">findOverlaps</a></span><span class="op">(</span><span class="va">CTCF_hg38_all</span>, <span class="va">CTCF_hg38_all</span><span class="op">)</span></span>
+<span><span class="va">prop_overlap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">queryHits</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">prop_overlap</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">prop_overlap</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"1"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38_all</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.375093</span></span></code></pre></div>
+<p>The proportion of overlapping CTCF sites in the <code>CTCF_hg38_filtered</code> object containing CTCF sites detected by the <a href="https://jaspar.genereg.net/matrix/MA0139.1/" class="external-link">MA0139.1</a> matrix is less than 2.5%</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/findOverlaps-methods.html" class="external-link">findOverlaps</a></span><span class="op">(</span><span class="va">CTCF_hg38</span>, <span class="va">CTCF_hg38</span><span class="op">)</span></span>
+<span><span class="va">prop_overlap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">queryHits</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">prop_overlap</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">prop_overlap</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"1"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.0233485</span></span></code></pre></div>
+<p>Reducing them (merging overlapping CTCF sites), combined with 1E-6 cutoff filtering, yields the number of CTCF sites comparable to previously reported.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF_hg38 motifs at the 1e-6 threshold AND reduced:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38_filtered</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/inter-range-methods.html" class="external-link">reduce</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Number of CTCF_hg38 motifs at the 1e-6 threshold AND reduced: 21652"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF_hg38_all motifs at the 1e-6 threshold AND reduced:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38_all_filtered</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/inter-range-methods.html" class="external-link">reduce</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Number of CTCF_hg38_all motifs at the 1e-6 threshold AND reduced: 63572"</span></span></code></pre></div>
+<p>However, regulatory elements with CTCF proteins co-occupying adjacent/overlapping CTCF binding motifs were shown to be functionally and structurally different from those with single CTCF motifs. We provide non-reduced CTCF data and advise considering overlap of CTCF sites depending on the study’s goal.</p>
 </div>
+</div>
+<div class="section level1">
+<h1 id="liftover-of-ctcf-coordinates">liftOver of CTCF coordinates<a class="anchor" aria-label="anchor" href="#liftover-of-ctcf-coordinates"></a>
+</h1>
+<p>As genome assemblies for model organisms continue to improve, CTCF sites for previous genome assemblies become obsolete. Typically, the actual genome sequence changes little, leading to changes in genomic coordinates. The <a href="https://genome.ucsc.edu/cgi-bin/hgLiftOver" class="external-link">liftOver</a> method allows for conversion of genomic coordinates between genome assemblies.</p>
+<p>Some carefully curated CTCF sites are available only for older genome assemblies. Examples include the data from <a href="https://insulatordb.uthsc.edu/" class="external-link">CTCFBSDB</a>, available for hg18 and mm8 genome assemblies.</p>
+<p>To investigate whether liftOver of CTCF sites from older genome assemblies is a viable option, we tested for overlap between CTCF sites directly detected in specific genome assemblies with those lifted over. We detected CTCF sites using the <a href="https://jaspar.genereg.net/matrix/MA0139.1/" class="external-link">MA0139.1</a> PWM from JASPAR 2022 database in hg18, hg19, hg38, and T2T genome assemblies and converted their genomic coordinates using the corresponding liftOver chains (<a href="https://github.com/dozmorovlab/CTCF.dev/blob/main/scripts/download_liftOver.sh" class="external-link">download_liftOver.sh</a> and <a href="https://github.com/dozmorovlab/CTCF.dev/blob/main/scripts/convert_liftOver.sh" class="external-link">convert_liftOver.sh</a> scripts). We observed high Jaccard overlap among CTCF sites detected in the original genome assemblies or lifted over.</p>
+<p><strong>Jaccard overlaps among CTCF binding sites detected in the original and liftOver human genome assemblies.</strong> CTCF sites were detected using JASPAR 2022 MA0139.1 PWM. The correlogram was clustered using Euclidean distance and Ward.D clustering . White-red gradient indicate low-to-high Jaccard overlaps. Jaccard values are shown in the corresponding cells.</p>
+<p><img src="reference/figures/Figure_liftOverJaccard.png" width="100%"></p>
+<p>Our results suggest that liftOver is a viable alternative to obtain CTCF genomic annotations for different genome assemblies. We provide <a href="https://insulatordb.uthsc.edu/" class="external-link">CTCFBSDB</a> data converted to hg19 and hg38 genome assemblies.</p>
 </div>
 <div class="section level1">
 <h1 id="ctcf-position-weight-matrices">CTCF Position Weight Matrices<a class="anchor" aria-label="anchor" href="#ctcf-position-weight-matrices"></a>
@@ -1029,25 +1130,25 @@
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>Below is the citation output from using <code>citation('CTCF')</code> in R. Please run this yourself to check for any updates on how to cite <strong>CTCF</strong>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"CTCF"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; To cite package 'CTCF' in publications use:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M</span>
-<span class="co">#&gt;   (2022). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package</span>
-<span class="co">#&gt;   version 0.99.5, &lt;https://github.com/mdozmorov/CTCF&gt;.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   @Manual{,</span>
-<span class="co">#&gt;     title = {CTCF},</span>
-<span class="co">#&gt;     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},</span>
-<span class="co">#&gt;     year = {2022},</span>
-<span class="co">#&gt;     url = {https://github.com/mdozmorov/CTCF},</span>
-<span class="co">#&gt;     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.5},</span>
-<span class="co">#&gt;   }</span></code></pre></div>
-<p>Please note that the <code>CTCF</code> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"CTCF"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; To cite package 'CTCF' in publications use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M</span></span>
+<span><span class="co">#&gt;   (2022). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package</span></span>
+<span><span class="co">#&gt;   version 0.99.6, &lt;https://github.com/mdozmorov/CTCF&gt;.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   @Manual{,</span></span>
+<span><span class="co">#&gt;     title = {CTCF},</span></span>
+<span><span class="co">#&gt;     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},</span></span>
+<span><span class="co">#&gt;     year = {2022},</span></span>
+<span><span class="co">#&gt;     url = {https://github.com/mdozmorov/CTCF},</span></span>
+<span><span class="co">#&gt;     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.6},</span></span>
+<span><span class="co">#&gt;   }</span></span></code></pre></div>
+<p>Please note that the <em><a href="https://bioconductor.org/packages/3.16/BiocCheck" class="external-link">BiocCheck</a></em> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
 </div>
 <div class="section level2">
 <h2 id="development-tools">Development tools<a class="anchor" aria-label="anchor" href="#development-tools"></a>
@@ -1094,6 +1195,7 @@
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+<li><a href="SUPPORT.html">Getting help</a></li>
 </ul>
 </div>
 
@@ -1135,7 +1237,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer>
