@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) 
 <!-- [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/CTCF.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/CTCF) [![R-CMD-check-bioc](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml) -->
 
-`r BiocStyle::Biocpkg('BiocCheck')` defines an AnnotationHub resource representing genomic coordinates 
+`r BiocStyle::Biocpkg('CTCF')` defines an AnnotationHub resource representing genomic coordinates 
 of [FIMO](https://meme-suite.org/meme/doc/fimo.html)-predicted CTCF binding 
 sites for human and mouse genomes, including the 
 [Telomere-to-Telomere](https://github.com/marbl/CHM13) and [mm39](http://genomeref.blogspot.com/2020/07/grcm39-new-mouse-reference-genome.html)
@@ -251,7 +251,8 @@ run this yourself to check for any updates on how to cite __CTCF__.
 print(citation("CTCF"), bibtex = TRUE)
 ```
 
-Please note that the `r BiocStyle::Biocpkg('BiocCheck')` was only made possible thanks to many other R and 
+<!--
+Please note that the `r BiocStyle::Biocpkg('CTCF')` was only made possible thanks to many other R and 
 bioinformatics software authors, which are cited either in the vignettes and/or 
 the paper(s) describing this package.
 
@@ -264,6 +265,7 @@ the paper(s) describing this package.
 * The documentation is formatted thanks to `r BiocStyle::CRANpkg('devtools')` and `r BiocStyle::CRANpkg('roxygen2')`.
 
 For more details, check the `dev` directory.
+-->
 
 This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
 

@@ -7,8 +7,8 @@
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/CTCF.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/CTCF) [![R-CMD-check-bioc](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml) -->
 
-*[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)* defines
-an AnnotationHub resource representing genomic coordinates of
+*[CTCF](https://bioconductor.org/packages/3.16/CTCF)* defines an
+AnnotationHub resource representing genomic coordinates of
 [FIMO](https://meme-suite.org/meme/doc/fimo.html)-predicted CTCF binding
 sites for human and mouse genomes, including the
 [Telomere-to-Telomere](https://github.com/marbl/CHM13) and
@@ -63,12 +63,12 @@ suppressMessages(library(AnnotationHub))
 #> Warning: package 'BiocGenerics' was built under R version 4.2.1
 #> Warning: package 'BiocFileCache' was built under R version 4.2.1
 ah <- AnnotationHub()
-#> snapshotDate(): 2022-09-30
+#> snapshotDate(): 2022-10-26
 query_data <- subset(ah, preparerclass=="CTCF")
 # Explore the AnnotationHub object
 query_data
 #> AnnotationHub with 51 records
-#> # snapshotDate(): 2022-09-30
+#> # snapshotDate(): 2022-10-26
 #> # $dataprovider: JASPAR 2022, CTCFBSDB 2.0, SwissRegulon, Jolma 2013, HOCOMO...
 #> # $species: Homo sapiens, Mus musculus
 #> # $rdataclass: GRanges
@@ -103,7 +103,7 @@ subset(query_data, species == "Homo sapiens" &
                    genome == "hg38" & 
                    dataprovider == "JASPAR 2022")
 #> AnnotationHub with 2 records
-#> # snapshotDate(): 2022-09-30
+#> # snapshotDate(): 2022-10-26
 #> # $dataprovider: JASPAR 2022
 #> # $species: Homo sapiens
 #> # $rdataclass: GRanges
@@ -127,11 +127,14 @@ To retrieve, we’ll use:
 ``` r
 # hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2
 CTCF_hg38_all <- query_data[["AH104727"]]
+#> downloading 1 resources
+#> retrieving 1 resource
 #> loading from cache
 #> require("GenomicRanges")
 #> Warning: package 'GenomicRanges' was built under R version 4.2.1
 #> Warning: package 'S4Vectors' was built under R version 4.2.1
 #> Warning: package 'IRanges' was built under R version 4.2.1
+#> Warning: package 'GenomeInfoDb' was built under R version 4.2.1
 CTCF_hg38_all
 #> GRanges object with 3093041 ranges and 5 metadata columns:
 #>             seqnames            ranges strand |                   name
@@ -171,6 +174,8 @@ PWM. To retrieve:
 ``` r
 # hg38.MA0139.1
 CTCF_hg38 <- query_data[["AH104729"]]
+#> downloading 1 resources
+#> retrieving 1 resource
 #> loading from cache
 CTCF_hg38
 #> GRanges object with 887980 ranges and 5 metadata columns:
@@ -450,53 +455,23 @@ run this yourself to check for any updates on how to cite **CTCF**.
 
 ``` r
 print(citation("CTCF"), bibtex = TRUE)
-#> 
-#> To cite package 'CTCF' in publications use:
-#> 
-#>   Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M
-#>   (2022). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package
-#>   version 0.99.6, <https://github.com/mdozmorov/CTCF>.
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {CTCF},
-#>     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},
-#>     year = {2022},
-#>     url = {https://github.com/mdozmorov/CTCF},
-#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.6},
-#>   }
 ```
 
-Please note that the
-*[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)* was only
-made possible thanks to many other R and bioinformatics software
-authors, which are cited either in the vignettes and/or the paper(s)
-describing this package.
+<!--
+Please note that the *[CTCF](https://bioconductor.org/packages/3.16/CTCF)* was only made possible thanks to many other R and 
+bioinformatics software authors, which are cited either in the vignettes and/or 
+the paper(s) describing this package.
 
 ## Development tools
 
--   Continuous code testing is possible thanks to [GitHub
-    actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)
-    through *[usethis](https://CRAN.R-project.org/package=usethis)*,
-    *[remotes](https://CRAN.R-project.org/package=remotes)*, and
-    *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)*
-    customized to use [Bioconductor’s docker
-    containers](https://www.bioconductor.org/help/docker/) and
-    *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
--   Code coverage assessment is possible thanks to
-    [codecov](https://codecov.io/gh) and
-    *[covr](https://CRAN.R-project.org/package=covr)*.
--   The [documentation website](http://mdozmorov.github.io/CTCF) is
-    automatically updated thanks to
-    *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
--   The code is styled automatically thanks to
-    *[styler](https://CRAN.R-project.org/package=styler)*.
--   The documentation is formatted thanks to
-    *[devtools](https://CRAN.R-project.org/package=devtools)* and
-    *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
+* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through *[usethis](https://CRAN.R-project.org/package=usethis)*, *[remotes](https://CRAN.R-project.org/package=remotes)*, and *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
+* Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh) and *[covr](https://CRAN.R-project.org/package=covr)*.
+* The [documentation website](http://mdozmorov.github.io/CTCF) is automatically updated thanks to *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
+* The code is styled automatically thanks to *[styler](https://CRAN.R-project.org/package=styler)*.
+* The documentation is formatted thanks to *[devtools](https://CRAN.R-project.org/package=devtools)* and *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
 
 For more details, check the `dev` directory.
+-->
 
 This package was developed using
 *[biocthis](https://bioconductor.org/packages/3.16/biocthis)*.
