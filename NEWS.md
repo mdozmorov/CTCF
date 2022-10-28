@@ -1,3 +1,6 @@
+# CTCF 0.99.8 (2022-10-28)
+- Update README and vignette
+
 # CTCF 0.99.7 (2022-10-15)
 - Update README and vignette: installation instructions, examples of filtering
   by p-value, merging, liftover
