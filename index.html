@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">CTCF</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.7</span>
       </span>
     </div>
 
@@ -85,8 +85,8 @@
 <div class="section level1">
 <div class="page-header"><h1 id="ctcf">CTCF<a class="anchor" aria-label="anchor" href="#ctcf"></a>
 </h1></div>
-
-<p><em><a href="https://bioconductor.org/packages/3.16/BiocCheck" class="external-link">BiocCheck</a></em> defines an AnnotationHub resource representing genomic coordinates of <a href="https://meme-suite.org/meme/doc/fimo.html" class="external-link">FIMO</a>-predicted CTCF binding sites for human and mouse genomes, including the <a href="https://github.com/marbl/CHM13" class="external-link">Telomere-to-Telomere</a> and <a href="http://genomeref.blogspot.com/2020/07/grcm39-new-mouse-reference-genome.html" class="external-link">mm39</a> genome assemblies. It also includes experimentally defined CTCF-bound cis-regulatory elements from <a href="https://screen.encodeproject.org/" class="external-link">ENCODE SCREEN</a>.</p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a> <!-- [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/CTCF.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/CTCF) [![R-CMD-check-bioc](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml) --></p>
+<p><em><a href="https://bioconductor.org/packages/3.16/CTCF" class="external-link">CTCF</a></em> defines an AnnotationHub resource representing genomic coordinates of <a href="https://meme-suite.org/meme/doc/fimo.html" class="external-link">FIMO</a>-predicted CTCF binding sites for human and mouse genomes, including the <a href="https://github.com/marbl/CHM13" class="external-link">Telomere-to-Telomere</a> and <a href="http://genomeref.blogspot.com/2020/07/grcm39-new-mouse-reference-genome.html" class="external-link">mm39</a> genome assemblies. It also includes experimentally defined CTCF-bound cis-regulatory elements from <a href="https://screen.encodeproject.org/" class="external-link">ENCODE SCREEN</a>.</p>
 <p>TL;DR - for human hg38 genome assembly, use <code>hg38.MA0139.1.RData</code> (“AH104729”). For mouse mm10 genome assembly, use <code>mm10.MA0139.1.RData</code> (“AH104755”). For <a href="https://screen.encodeproject.org/" class="external-link">ENCODE SCREEN</a> data, use <code>hg38.SCREEN.GRCh38_CTCF.RData</code> (“AH104730”) or <code>mm10.SCREEN.mm10_CTCF.RData</code> (“AH104756”) objects.</p>
 <p>The CTCF GRanges are named as <code>&lt;assembly&gt;.&lt;Database&gt;</code>. The FIMO-predicted data includes extra columns with motif name, score, p-value, q-value, and the motif sequence.</p>
 <p><strong>Please, note that the updated CTCF objects will be available in Bioconductor/AnnotationHub 3.16.</strong> To test the following code, use the <code>bioconductor::devel</code> Docker image. Run:</p>
@@ -114,12 +114,12 @@
 <span><span class="co">#&gt; Warning: package 'BiocGenerics' was built under R version 4.2.1</span></span>
 <span><span class="co">#&gt; Warning: package 'BiocFileCache' was built under R version 4.2.1</span></span>
 <span><span class="va">ah</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationHub/man/AnnotationHub-class.html" class="external-link">AnnotationHub</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; snapshotDate(): 2022-09-30</span></span>
+<span><span class="co">#&gt; snapshotDate(): 2022-10-26</span></span>
 <span><span class="va">query_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ah</span>, <span class="va">preparerclass</span><span class="op">==</span><span class="st">"CTCF"</span><span class="op">)</span></span>
 <span><span class="co"># Explore the AnnotationHub object</span></span>
 <span><span class="va">query_data</span></span>
 <span><span class="co">#&gt; AnnotationHub with 51 records</span></span>
-<span><span class="co">#&gt; # snapshotDate(): 2022-09-30</span></span>
+<span><span class="co">#&gt; # snapshotDate(): 2022-10-26</span></span>
 <span><span class="co">#&gt; # $dataprovider: JASPAR 2022, CTCFBSDB 2.0, SwissRegulon, Jolma 2013, HOCOMO...</span></span>
 <span><span class="co">#&gt; # $species: Homo sapiens, Mus musculus</span></span>
 <span><span class="co">#&gt; # $rdataclass: GRanges</span></span>
@@ -150,7 +150,7 @@
 <span>                   <span class="va">genome</span> <span class="op">==</span> <span class="st">"hg38"</span> <span class="op">&amp;</span> </span>
 <span>                   <span class="va">dataprovider</span> <span class="op">==</span> <span class="st">"JASPAR 2022"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; AnnotationHub with 2 records</span></span>
-<span><span class="co">#&gt; # snapshotDate(): 2022-09-30</span></span>
+<span><span class="co">#&gt; # snapshotDate(): 2022-10-26</span></span>
 <span><span class="co">#&gt; # $dataprovider: JASPAR 2022</span></span>
 <span><span class="co">#&gt; # $species: Homo sapiens</span></span>
 <span><span class="co">#&gt; # $rdataclass: GRanges</span></span>
@@ -168,11 +168,14 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2</span></span>
 <span><span class="va">CTCF_hg38_all</span> <span class="op">&lt;-</span> <span class="va">query_data</span><span class="op">[[</span><span class="st">"AH104727"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; downloading 1 resources</span></span>
+<span><span class="co">#&gt; retrieving 1 resource</span></span>
 <span><span class="co">#&gt; loading from cache</span></span>
 <span><span class="co">#&gt; require("GenomicRanges")</span></span>
 <span><span class="co">#&gt; Warning: package 'GenomicRanges' was built under R version 4.2.1</span></span>
 <span><span class="co">#&gt; Warning: package 'S4Vectors' was built under R version 4.2.1</span></span>
 <span><span class="co">#&gt; Warning: package 'IRanges' was built under R version 4.2.1</span></span>
+<span><span class="co">#&gt; Warning: package 'GenomeInfoDb' was built under R version 4.2.1</span></span>
 <span><span class="va">CTCF_hg38_all</span></span>
 <span><span class="co">#&gt; GRanges object with 3093041 ranges and 5 metadata columns:</span></span>
 <span><span class="co">#&gt;             seqnames            ranges strand |                   name</span></span>
@@ -207,6 +210,8 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># hg38.MA0139.1</span></span>
 <span><span class="va">CTCF_hg38</span> <span class="op">&lt;-</span> <span class="va">query_data</span><span class="op">[[</span><span class="st">"AH104729"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; downloading 1 resources</span></span>
+<span><span class="co">#&gt; retrieving 1 resource</span></span>
 <span><span class="co">#&gt; loading from cache</span></span>
 <span><span class="va">CTCF_hg38</span></span>
 <span><span class="co">#&gt; GRanges object with 887980 ranges and 5 metadata columns:</span></span>
@@ -1105,36 +1110,22 @@
 </h2>
 <p>Below is the citation output from using <code>citation('CTCF')</code> in R. Please run this yourself to check for any updates on how to cite <strong>CTCF</strong>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"CTCF"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; To cite package 'CTCF' in publications use:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M</span></span>
-<span><span class="co">#&gt;   (2022). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package</span></span>
-<span><span class="co">#&gt;   version 0.99.6, &lt;https://github.com/mdozmorov/CTCF&gt;.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   @Manual{,</span></span>
-<span><span class="co">#&gt;     title = {CTCF},</span></span>
-<span><span class="co">#&gt;     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},</span></span>
-<span><span class="co">#&gt;     year = {2022},</span></span>
-<span><span class="co">#&gt;     url = {https://github.com/mdozmorov/CTCF},</span></span>
-<span><span class="co">#&gt;     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.6},</span></span>
-<span><span class="co">#&gt;   }</span></span></code></pre></div>
-<p>Please note that the <em><a href="https://bioconductor.org/packages/3.16/BiocCheck" class="external-link">BiocCheck</a></em> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
-</div>
-<div class="section level2">
-<h2 id="development-tools">Development tools<a class="anchor" aria-label="anchor" href="#development-tools"></a>
-</h2>
-<ul>
-<li>Continuous code testing is possible thanks to <a href="https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/" class="external-link">GitHub actions</a> through <em><a href="https://CRAN.R-project.org/package=usethis" class="external-link">usethis</a></em>, <em><a href="https://CRAN.R-project.org/package=remotes" class="external-link">remotes</a></em>, and <em><a href="https://CRAN.R-project.org/package=rcmdcheck" class="external-link">rcmdcheck</a></em> customized to use <a href="https://www.bioconductor.org/help/docker/" class="external-link">Bioconductor’s docker containers</a> and <em><a href="https://bioconductor.org/packages/3.16/BiocCheck" class="external-link">BiocCheck</a></em>.</li>
-<li>Code coverage assessment is possible thanks to <a href="https://codecov.io/gh" class="external-link">codecov</a> and <em><a href="https://CRAN.R-project.org/package=covr" class="external-link">covr</a></em>.</li>
-<li>The <a href="http://mdozmorov.github.io/CTCF" class="external-link">documentation website</a> is automatically updated thanks to <em><a href="https://CRAN.R-project.org/package=pkgdown" class="external-link">pkgdown</a></em>.</li>
-<li>The code is styled automatically thanks to <em><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a></em>.</li>
-<li>The documentation is formatted thanks to <em><a href="https://CRAN.R-project.org/package=devtools" class="external-link">devtools</a></em> and <em><a href="https://CRAN.R-project.org/package=roxygen2" class="external-link">roxygen2</a></em>.</li>
-</ul>
-<p>For more details, check the <code>dev</code> directory.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"CTCF"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<!--
+Please note that the *[CTCF](https://bioconductor.org/packages/3.16/CTCF)* was only made possible thanks to many other R and 
+bioinformatics software authors, which are cited either in the vignettes and/or 
+the paper(s) describing this package.
+
+## Development tools
+
+* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through *[usethis](https://CRAN.R-project.org/package=usethis)*, *[remotes](https://CRAN.R-project.org/package=remotes)*, and *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
+* Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh) and *[covr](https://CRAN.R-project.org/package=covr)*.
+* The [documentation website](http://mdozmorov.github.io/CTCF) is automatically updated thanks to *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
+* The code is styled automatically thanks to *[styler](https://CRAN.R-project.org/package=styler)*.
+* The documentation is formatted thanks to *[devtools](https://CRAN.R-project.org/package=devtools)* and *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
+
+For more details, check the `dev` directory.
+-->
 <p>This package was developed using <em><a href="https://bioconductor.org/packages/3.16/biocthis" class="external-link">biocthis</a></em>.</p>
 </div>
 <div class="section level2">
@@ -1193,12 +1184,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
