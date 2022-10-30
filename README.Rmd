@@ -66,7 +66,7 @@ BiocManager::install("plyranges", update = FALSE)
 ```{r get-data}
 suppressMessages(library(AnnotationHub))
 ah <- AnnotationHub()
-query_data <- subset(ah, preparerclass=="CTCF")
+query_data <- subset(ah, preparerclass == "CTCF")
 # Explore the AnnotationHub object
 query_data
 # Get the list of data providers
@@ -107,6 +107,17 @@ It is always advisable to sort GRanges objects and keep standard chromsomes:
 suppressMessages(library(plyranges))
 CTCF_hg38_all <- CTCF_hg38_all %>% keepStandardChromosomes() %>% sort()
 CTCF_hg38 <- CTCF_hg38 %>% keepStandardChromosomes() %>% sort()
+```
+
+Save the data in a BED file, if needed.
+
+```{r eval=FALSE}
+# Note that rtracklayer::import and rtracklayer::export perform unexplained
+# start coordinate conversion, likely related to 0- and 1-based coordinate
+# system. We recommend converting GRanges to a data frame and save tab-separated
+write.table(as.data.frame(CTCF_hg38), 
+            file = "CTCF_hg38.bed",
+            sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 ```
 
 Note that the [FIMO](https://meme-suite.org/meme/doc/fimo.html) tool detects 

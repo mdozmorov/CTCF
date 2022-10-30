@@ -64,7 +64,7 @@ suppressMessages(library(AnnotationHub))
 #> Warning: package 'BiocFileCache' was built under R version 4.2.1
 ah <- AnnotationHub()
 #> snapshotDate(): 2022-10-26
-query_data <- subset(ah, preparerclass=="CTCF")
+query_data <- subset(ah, preparerclass == "CTCF")
 # Explore the AnnotationHub object
 query_data
 #> AnnotationHub with 51 records
@@ -127,8 +127,6 @@ To retrieve, we’ll use:
 ``` r
 # hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2
 CTCF_hg38_all <- query_data[["AH104727"]]
-#> downloading 1 resources
-#> retrieving 1 resource
 #> loading from cache
 #> require("GenomicRanges")
 #> Warning: package 'GenomicRanges' was built under R version 4.2.1
@@ -174,8 +172,6 @@ PWM. To retrieve:
 ``` r
 # hg38.MA0139.1
 CTCF_hg38 <- query_data[["AH104729"]]
-#> downloading 1 resources
-#> retrieving 1 resource
 #> loading from cache
 CTCF_hg38
 #> GRanges object with 887980 ranges and 5 metadata columns:
@@ -216,6 +212,17 @@ chromsomes:
 suppressMessages(library(plyranges))
 CTCF_hg38_all <- CTCF_hg38_all %>% keepStandardChromosomes() %>% sort()
 CTCF_hg38 <- CTCF_hg38 %>% keepStandardChromosomes() %>% sort()
+```
+
+Save the data in a BED file, if needed.
+
+``` r
+# Note that rtracklayer::import and rtracklayer::export perform unexplained
+# start coordinate conversion, likely related to 0- and 1-based coordinate
+# system. We recommend converting GRanges to a data frame and save tab-separated
+write.table(as.data.frame(CTCF_hg38), 
+            file = "CTCF_hg38.bed",
+            sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 ```
 
 Note that the [FIMO](https://meme-suite.org/meme/doc/fimo.html) tool

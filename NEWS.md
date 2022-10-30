@@ -1,3 +1,6 @@
+# CTCF 0.99.9 (2022-10-29)
+- Update README and vignette
+
 # CTCF 0.99.8 (2022-10-28)
 - Update README and vignette
 

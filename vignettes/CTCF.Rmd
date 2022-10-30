@@ -65,7 +65,7 @@ Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then
 install `r BiocStyle::Biocpkg('AnnotationHub')` from [Bioconductor](http://bioconductor.org/) 
 using the following code:
 
-```{r 'install', eval = FALSE}
+```{r 'install', eval = TRUE, message=FALSE, warning=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
@@ -80,7 +80,7 @@ BiocManager::install("plyranges", update = FALSE)
 ```{r get-data}
 suppressMessages(library(AnnotationHub))
 ah <- AnnotationHub()
-query_data <- subset(ah, preparerclass=="CTCF")
+query_data <- subset(ah, preparerclass == "CTCF")
 # Explore the AnnotationHub object
 query_data
 # Get the list of data providers
@@ -121,6 +121,17 @@ It is always advisable to sort GRanges objects and keep standard chromsomes:
 suppressMessages(library(plyranges))
 CTCF_hg38_all <- CTCF_hg38_all %>% keepStandardChromosomes() %>% sort()
 CTCF_hg38 <- CTCF_hg38 %>% keepStandardChromosomes() %>% sort()
+```
+
+Save the data in a BED file, if needed.
+
+```{r eval=FALSE}
+# Note that rtracklayer::import and rtracklayer::export perform unexplained
+# start coordinate conversion, likely related to 0- and 1-based coordinate
+# system. We recommend converting GRanges to a data frame and save tab-separated
+write.table(as.data.frame(CTCF_hg38), 
+            file = "CTCF_hg38.bed",
+            sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 ```
 
 Note that the [FIMO](https://meme-suite.org/meme/doc/fimo.html) tool detects 
@@ -265,11 +276,11 @@ run this yourself to check for any updates on how to cite __CTCF__.
 print(citation("CTCF"), bibtex = TRUE)
 ```
 
+<!--
 Please note that the `r BiocStyle::Biocpkg('CTCF')` was only made possible thanks to many other R and 
 bioinformatics software authors, which are cited either in the vignettes and/or 
 the paper(s) describing this package.
 
-<!--
 ## Development tools
 
 * Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through `r BiocStyle::CRANpkg('usethis')`, `r BiocStyle::CRANpkg('remotes')`, and `r BiocStyle::CRANpkg('rcmdcheck')` customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and `r BiocStyle::Biocpkg('BiocCheck')`.
@@ -286,21 +297,3 @@ This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
 ## Code of Conduct
 
 Please note that the CTCF project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
-
-Date the vignette was generated.
-
-```{r reproduce1, echo=FALSE}
-## Date the vignette was generated
-Sys.time()
-```
-
-`R` session information.
-
-```{r reproduce3, echo=FALSE}
-## Session info
-library("sessioninfo")
-options(width = 120)
-session_info()
-```
-
-
