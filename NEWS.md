@@ -1,4 +1,4 @@
-# CTCF 1.0.0 (2022-11-06)
+# CTCF 0.99.10 (2022-11-06)
 - Update README and vignette, installation instructions
 
 # CTCF 0.99.9 (2022-10-29)
