@@ -37,6 +37,7 @@ The CTCF GRanges are named as `<assembly>.<Database>`. The FIMO-predicted data
 includes extra columns with motif name, score, p-value, q-value, and the motif 
 sequence.
 
+<!--
 **Please, note that the updated CTCF objects will be available in 
 Bioconductor/AnnotationHub 3.16.** To test the following code, use the 
 `bioconductor::devel` Docker image. Run:
@@ -44,21 +45,26 @@ Bioconductor/AnnotationHub 3.16.** To test the following code, use the
 docker run -e PASSWORD=password -p 8787:8787 -d --rm -v $(pwd):/home/rstudio bioconductor/bioconductor_docker:devel
 ```
 Open http://localhost:8787 and login using `rstudio/password` credentials.
+-->
 
 ## Installation instructions
 
-Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then 
-install `r BiocStyle::Biocpkg('AnnotationHub')` from [Bioconductor](http://bioconductor.org/) 
-using the following code:
+[Install](https://www.bioconductor.org/install/#install-R) the latest 
+release of R, then get the latest version of Bioconductor by starting R and 
+entering the commands:
 
-```{r 'install', eval = TRUE, message=FALSE, warning=FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
-}
-BiocManager::install("AnnotationHub", update = FALSE) 
-# Additional packages
-BiocManager::install("GenomicRanges", update = FALSE)
-BiocManager::install("plyranges", update = FALSE)
+```{r 'install1', eval = TRUE, message=FALSE, warning=FALSE}
+# if (!require("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install(version = "3.16")
+```
+
+Then, install additional packages using the following code:
+
+```{r 'install2', eval = TRUE, message=FALSE, warning=FALSE}
+# BiocManager::install("AnnotationHub", update = FALSE) 
+# BiocManager::install("GenomicRanges", update = FALSE)
+# BiocManager::install("plyranges", update = FALSE)
 ```
 
 ## Example

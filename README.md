@@ -27,32 +27,35 @@ The CTCF GRanges are named as `<assembly>.<Database>`. The
 FIMO-predicted data includes extra columns with motif name, score,
 p-value, q-value, and the motif sequence.
 
-**Please, note that the updated CTCF objects will be available in
-Bioconductor/AnnotationHub 3.16.** To test the following code, use the
+<!--
+**Please, note that the updated CTCF objects will be available in 
+Bioconductor/AnnotationHub 3.16.** To test the following code, use the 
 `bioconductor::devel` Docker image. Run:
 
-``` bash
+```bash
 docker run -e PASSWORD=password -p 8787:8787 -d --rm -v $(pwd):/home/rstudio bioconductor/bioconductor_docker:devel
 ```
-
-Open <http://localhost:8787> and login using `rstudio/password`
-credentials.
+Open http://localhost:8787 and login using `rstudio/password` credentials.
+-->
 
 ## Installation instructions
 
-Get the latest stable `R` release from
-[CRAN](http://cran.r-project.org/). Then install
-*[AnnotationHub](https://bioconductor.org/packages/3.16/AnnotationHub)*
-from [Bioconductor](http://bioconductor.org/) using the following code:
+[Install](https://www.bioconductor.org/install/#install-R) the latest
+release of R, then get the latest version of Bioconductor by starting R
+and entering the commands:
 
 ``` r
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
-}
-BiocManager::install("AnnotationHub", update = FALSE) 
-# Additional packages
-BiocManager::install("GenomicRanges", update = FALSE)
-BiocManager::install("plyranges", update = FALSE)
+# if (!require("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install(version = "3.16")
+```
+
+Then, install additional packages using the following code:
+
+``` r
+# BiocManager::install("AnnotationHub", update = FALSE) 
+# BiocManager::install("GenomicRanges", update = FALSE)
+# BiocManager::install("plyranges", update = FALSE)
 ```
 
 ## Example
@@ -127,6 +130,8 @@ To retrieve, we’ll use:
 ``` r
 # hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2
 CTCF_hg38_all <- query_data[["AH104727"]]
+#> downloading 1 resources
+#> retrieving 1 resource
 #> loading from cache
 #> require("GenomicRanges")
 #> Warning: package 'GenomicRanges' was built under R version 4.2.1
@@ -172,6 +177,8 @@ PWM. To retrieve:
 ``` r
 # hg38.MA0139.1
 CTCF_hg38 <- query_data[["AH104729"]]
+#> downloading 1 resources
+#> retrieving 1 resource
 #> loading from cache
 CTCF_hg38
 #> GRanges object with 887980 ranges and 5 metadata columns:
@@ -210,6 +217,7 @@ chromsomes:
 
 ``` r
 suppressMessages(library(plyranges))
+#> Warning: package 'plyranges' was built under R version 4.2.1
 CTCF_hg38_all <- CTCF_hg38_all %>% keepStandardChromosomes() %>% sort()
 CTCF_hg38 <- CTCF_hg38 %>% keepStandardChromosomes() %>% sort()
 ```
@@ -462,6 +470,22 @@ run this yourself to check for any updates on how to cite **CTCF**.
 
 ``` r
 print(citation("CTCF"), bibtex = TRUE)
+#> 
+#> To cite package 'CTCF' in publications use:
+#> 
+#>   Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M
+#>   (2022). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package
+#>   version 0.99.9, <https://github.com/mdozmorov/CTCF>.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {CTCF},
+#>     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},
+#>     year = {2022},
+#>     url = {https://github.com/mdozmorov/CTCF},
+#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.9},
+#>   }
 ```
 
 <!--
