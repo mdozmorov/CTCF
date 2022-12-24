@@ -1,14 +1,6 @@
-pkgVer <- function(pkg) {
-    if (!exists("meta") || is.null(meta)) meta <- packageDescription(pkg)
-    ver <- meta$Version
-    paste0('https://github.com/mdozmorov/CTCF/', pkg, ' - R package version ', ver)
-}
-
-c(
-
-    bibentry(bibtype="manual",
-        title = "CTCF",
-        author = personList(
+citEntry(entry="article",
+         title = "CTCF: An R/Bioconductor Data Package of Human and Mouse Ctcf Binding Sites",
+         author = personList(
             as.person("Mikhail G. Dozmorov"),
             as.person("Eric Davis"),
             as.person("Wancen Mu"),
@@ -16,9 +8,10 @@ c(
             as.person("Tim Triche"),
             as.person("Douglas Phanstiel"),
             as.person("Michael Love")),
-        year = format(Sys.Date(), "%Y"),
-        url = "https://github.com/mdozmorov/CTCF",
-        note = pkgVer('CTCF'),
-        doi = ''
-    )
-)
+         year = 2022,
+         journal = "Bioinformatics Advances",
+         doi = "10.1093/bioadv/vbac097",
+         textVersion =
+         paste("Dozmorov, M. G., Mu, W., Davis, E. S., Lee, S., Triche, T. J., Phanstiel, D. H., & Love, M. I.",
+               "CTCF: An R/Bioconductor Data Package of Human and Mouse Ctcf Binding Sites",
+                "Bioinformatics Advances (2022), https://doi.org/10.1093/bioadv/vbac097" ) )
