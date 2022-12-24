@@ -1,3 +1,6 @@
+# CTCF 0.99.11 (2022-12-24)
+- Update README and vignette, creating IGV session XML
+
 # CTCF 0.99.10 (2022-11-06)
 - Update README and vignette, installation instructions
 
