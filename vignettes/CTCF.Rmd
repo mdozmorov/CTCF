@@ -90,7 +90,7 @@ query_data <- subset(ah, preparerclass == "CTCF")
 # Explore the AnnotationHub object
 query_data
 # Get the list of data providers
-query_data$dataprovider %>% unique()
+query_data$dataprovider %>% table()
 ```
 
 We can find CTCF sites identified using JASPAR 2022 database in hg38 human genome
@@ -135,9 +135,33 @@ Save the data in a BED file, if needed.
 # Note that rtracklayer::import and rtracklayer::export perform unexplained
 # start coordinate conversion, likely related to 0- and 1-based coordinate
 # system. We recommend converting GRanges to a data frame and save tab-separated
-write.table(as.data.frame(CTCF_hg38), 
+write.table(CTCF_hg38_all %>% sort() %>% as.data.frame(), 
+            file = "CTCF_hg38_all.bed",
+            sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
+write.table(CTCF_hg38 %>% sort() %>% as.data.frame(), 
             file = "CTCF_hg38.bed",
             sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
+Create an [IGV](https://software.broadinstitute.org/software/igv/)
+XML session file out of the saved BED files using the `r BiocStyle::Biocpkg('tracktables')`
+package. See `vignette("tracktables", package = "tracktables")` for more details.
+
+```{r eval=FALSE}
+library(tracktables) # BiocManager::install("tracktables")
+# Sample sheet metadata
+SampleSheet <- data.frame(SampleName = c("CTCF all", "CTCF MA0139.1"),
+                          Description = c("All CTCF matrices from JASPAR2022",
+                                          "MA0139.1 CTCF matrix from JASPAR2022"))
+# File sheet linking files with sample names
+FileSheet <- data.frame(SampleName = c("CTCF all", "CTCF MA0139.1"),
+                        bigwig = c(NA, NA),
+                        interval = c("CTCF_hg38_all.bed", "CTCF_hg38.bed"),
+                        bam = c(NA, NA))
+# Creating an IGV session XML file
+MakeIGVSession(SampleSheet, FileSheet, 
+               igvdirectory = getwd(), "CTCF_from_JASPAR2022", "hg38")
+
 ```
 
 Note that the [FIMO](https://meme-suite.org/meme/doc/fimo.html) tool detects 

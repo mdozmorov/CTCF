@@ -62,16 +62,13 @@ Then, install additional packages using the following code:
 
 ``` r
 suppressMessages(library(AnnotationHub))
-#> Warning: package 'AnnotationHub' was built under R version 4.2.1
-#> Warning: package 'BiocGenerics' was built under R version 4.2.1
-#> Warning: package 'BiocFileCache' was built under R version 4.2.1
 ah <- AnnotationHub()
-#> snapshotDate(): 2022-10-26
+#> snapshotDate(): 2022-10-31
 query_data <- subset(ah, preparerclass == "CTCF")
 # Explore the AnnotationHub object
 query_data
 #> AnnotationHub with 51 records
-#> # snapshotDate(): 2022-10-26
+#> # snapshotDate(): 2022-10-31
 #> # $dataprovider: JASPAR 2022, CTCFBSDB 2.0, SwissRegulon, Jolma 2013, HOCOMO...
 #> # $species: Homo sapiens, Mus musculus
 #> # $rdataclass: GRanges
@@ -93,9 +90,12 @@ query_data
 #>   AH104765 | mm9.SwissRegulon_human_and_mouse.RData                
 #>   AH104766 | mm8.CTCFBSDB.CTCF_predicted_mouse.RData
 # Get the list of data providers
-query_data$dataprovider %>% unique()
-#> [1] "CIS-BP"           "CTCFBSDB 2.0"     "HOCOMOCO v11"     "JASPAR 2022"     
-#> [5] "Jolma 2013"       "SwissRegulon"     "ENCODE SCREEN v3"
+query_data$dataprovider %>% table()
+#> .
+#>           CIS-BP     CTCFBSDB 2.0 ENCODE SCREEN v3     HOCOMOCO v11 
+#>                6               12                2                6 
+#>      JASPAR 2022       Jolma 2013     SwissRegulon 
+#>               13                6                6
 ```
 
 We can find CTCF sites identified using JASPAR 2022 database in hg38
@@ -106,7 +106,7 @@ subset(query_data, species == "Homo sapiens" &
                    genome == "hg38" & 
                    dataprovider == "JASPAR 2022")
 #> AnnotationHub with 2 records
-#> # snapshotDate(): 2022-10-26
+#> # snapshotDate(): 2022-10-31
 #> # $dataprovider: JASPAR 2022
 #> # $species: Homo sapiens
 #> # $rdataclass: GRanges
@@ -130,14 +130,8 @@ To retrieve, we’ll use:
 ``` r
 # hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2
 CTCF_hg38_all <- query_data[["AH104727"]]
-#> downloading 1 resources
-#> retrieving 1 resource
 #> loading from cache
 #> require("GenomicRanges")
-#> Warning: package 'GenomicRanges' was built under R version 4.2.1
-#> Warning: package 'S4Vectors' was built under R version 4.2.1
-#> Warning: package 'IRanges' was built under R version 4.2.1
-#> Warning: package 'GenomeInfoDb' was built under R version 4.2.1
 CTCF_hg38_all
 #> GRanges object with 3093041 ranges and 5 metadata columns:
 #>             seqnames            ranges strand |                   name
@@ -177,8 +171,6 @@ PWM. To retrieve:
 ``` r
 # hg38.MA0139.1
 CTCF_hg38 <- query_data[["AH104729"]]
-#> downloading 1 resources
-#> retrieving 1 resource
 #> loading from cache
 CTCF_hg38
 #> GRanges object with 887980 ranges and 5 metadata columns:
@@ -217,7 +209,6 @@ chromsomes:
 
 ``` r
 suppressMessages(library(plyranges))
-#> Warning: package 'plyranges' was built under R version 4.2.1
 CTCF_hg38_all <- CTCF_hg38_all %>% keepStandardChromosomes() %>% sort()
 CTCF_hg38 <- CTCF_hg38 %>% keepStandardChromosomes() %>% sort()
 ```
@@ -228,9 +219,34 @@ Save the data in a BED file, if needed.
 # Note that rtracklayer::import and rtracklayer::export perform unexplained
 # start coordinate conversion, likely related to 0- and 1-based coordinate
 # system. We recommend converting GRanges to a data frame and save tab-separated
-write.table(as.data.frame(CTCF_hg38), 
+write.table(CTCF_hg38_all %>% sort() %>% as.data.frame(), 
+            file = "CTCF_hg38_all.bed",
+            sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
+write.table(CTCF_hg38 %>% sort() %>% as.data.frame(), 
             file = "CTCF_hg38.bed",
             sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
+Create an [IGV](https://software.broadinstitute.org/software/igv/) XML
+session file out of the saved BED files using the
+*[tracktables](https://bioconductor.org/packages/3.16/tracktables)*
+package. See `vignette("tracktables", package = "tracktables")` for more
+details.
+
+``` r
+library(tracktables) # BiocManager::install("tracktables")
+# Sample sheet metadata
+SampleSheet <- data.frame(SampleName = c("CTCF all", "CTCF MA0139.1"),
+                          Description = c("All CTCF matrices from JASPAR2022",
+                                          "MA0139.1 CTCF matrix from JASPAR2022"))
+# File sheet linking files with sample names
+FileSheet <- data.frame(SampleName = c("CTCF all", "CTCF MA0139.1"),
+                        bigwig = c(NA, NA),
+                        interval = c("CTCF_hg38_all.bed", "CTCF_hg38.bed"),
+                        bam = c(NA, NA))
+# Creating an IGV session XML file
+MakeIGVSession(SampleSheet, FileSheet, 
+               igvdirectory = getwd(), "CTCF_from_JASPAR2022", "hg38")
 ```
 
 Note that the [FIMO](https://meme-suite.org/meme/doc/fimo.html) tool
@@ -470,22 +486,6 @@ run this yourself to check for any updates on how to cite **CTCF**.
 
 ``` r
 print(citation("CTCF"), bibtex = TRUE)
-#> 
-#> To cite package 'CTCF' in publications use:
-#> 
-#>   Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M
-#>   (2022). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package
-#>   version 0.99.9, <https://github.com/mdozmorov/CTCF>.
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {CTCF},
-#>     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},
-#>     year = {2022},
-#>     url = {https://github.com/mdozmorov/CTCF},
-#>     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.9},
-#>   }
 ```
 
 <!--
