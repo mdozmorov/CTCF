@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">CTCF</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.11</span>
       </span>
     </div>
 
@@ -118,16 +118,13 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">AnnotationHub</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'AnnotationHub' was built under R version 4.2.1</span></span>
-<span><span class="co">#&gt; Warning: package 'BiocGenerics' was built under R version 4.2.1</span></span>
-<span><span class="co">#&gt; Warning: package 'BiocFileCache' was built under R version 4.2.1</span></span>
 <span><span class="va">ah</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationHub/man/AnnotationHub-class.html" class="external-link">AnnotationHub</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; snapshotDate(): 2022-10-26</span></span>
+<span><span class="co">#&gt; snapshotDate(): 2022-10-31</span></span>
 <span><span class="va">query_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ah</span>, <span class="va">preparerclass</span> <span class="op">==</span> <span class="st">"CTCF"</span><span class="op">)</span></span>
 <span><span class="co"># Explore the AnnotationHub object</span></span>
 <span><span class="va">query_data</span></span>
 <span><span class="co">#&gt; AnnotationHub with 51 records</span></span>
-<span><span class="co">#&gt; # snapshotDate(): 2022-10-26</span></span>
+<span><span class="co">#&gt; # snapshotDate(): 2022-10-31</span></span>
 <span><span class="co">#&gt; # $dataprovider: JASPAR 2022, CTCFBSDB 2.0, SwissRegulon, Jolma 2013, HOCOMO...</span></span>
 <span><span class="co">#&gt; # $species: Homo sapiens, Mus musculus</span></span>
 <span><span class="co">#&gt; # $rdataclass: GRanges</span></span>
@@ -149,16 +146,19 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 <span><span class="co">#&gt;   AH104765 | mm9.SwissRegulon_human_and_mouse.RData                </span></span>
 <span><span class="co">#&gt;   AH104766 | mm8.CTCFBSDB.CTCF_predicted_mouse.RData</span></span>
 <span><span class="co"># Get the list of data providers</span></span>
-<span><span class="va">query_data</span><span class="op">$</span><span class="va">dataprovider</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "CIS-BP"           "CTCFBSDB 2.0"     "HOCOMOCO v11"     "JASPAR 2022"     </span></span>
-<span><span class="co">#&gt; [5] "Jolma 2013"       "SwissRegulon"     "ENCODE SCREEN v3"</span></span></code></pre></div>
+<span><span class="va">query_data</span><span class="op">$</span><span class="va">dataprovider</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; .</span></span>
+<span><span class="co">#&gt;           CIS-BP     CTCFBSDB 2.0 ENCODE SCREEN v3     HOCOMOCO v11 </span></span>
+<span><span class="co">#&gt;                6               12                2                6 </span></span>
+<span><span class="co">#&gt;      JASPAR 2022       Jolma 2013     SwissRegulon </span></span>
+<span><span class="co">#&gt;               13                6                6</span></span></code></pre></div>
 <p>We can find CTCF sites identified using JASPAR 2022 database in hg38 human genome</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">query_data</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Homo sapiens"</span> <span class="op">&amp;</span> </span>
 <span>                   <span class="va">genome</span> <span class="op">==</span> <span class="st">"hg38"</span> <span class="op">&amp;</span> </span>
 <span>                   <span class="va">dataprovider</span> <span class="op">==</span> <span class="st">"JASPAR 2022"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; AnnotationHub with 2 records</span></span>
-<span><span class="co">#&gt; # snapshotDate(): 2022-10-26</span></span>
+<span><span class="co">#&gt; # snapshotDate(): 2022-10-31</span></span>
 <span><span class="co">#&gt; # $dataprovider: JASPAR 2022</span></span>
 <span><span class="co">#&gt; # $species: Homo sapiens</span></span>
 <span><span class="co">#&gt; # $rdataclass: GRanges</span></span>
@@ -176,14 +176,8 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2</span></span>
 <span><span class="va">CTCF_hg38_all</span> <span class="op">&lt;-</span> <span class="va">query_data</span><span class="op">[[</span><span class="st">"AH104727"</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co">#&gt; downloading 1 resources</span></span>
-<span><span class="co">#&gt; retrieving 1 resource</span></span>
 <span><span class="co">#&gt; loading from cache</span></span>
 <span><span class="co">#&gt; require("GenomicRanges")</span></span>
-<span><span class="co">#&gt; Warning: package 'GenomicRanges' was built under R version 4.2.1</span></span>
-<span><span class="co">#&gt; Warning: package 'S4Vectors' was built under R version 4.2.1</span></span>
-<span><span class="co">#&gt; Warning: package 'IRanges' was built under R version 4.2.1</span></span>
-<span><span class="co">#&gt; Warning: package 'GenomeInfoDb' was built under R version 4.2.1</span></span>
 <span><span class="va">CTCF_hg38_all</span></span>
 <span><span class="co">#&gt; GRanges object with 3093041 ranges and 5 metadata columns:</span></span>
 <span><span class="co">#&gt;             seqnames            ranges strand |                   name</span></span>
@@ -218,8 +212,6 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># hg38.MA0139.1</span></span>
 <span><span class="va">CTCF_hg38</span> <span class="op">&lt;-</span> <span class="va">query_data</span><span class="op">[[</span><span class="st">"AH104729"</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co">#&gt; downloading 1 resources</span></span>
-<span><span class="co">#&gt; retrieving 1 resource</span></span>
 <span><span class="co">#&gt; loading from cache</span></span>
 <span><span class="va">CTCF_hg38</span></span>
 <span><span class="co">#&gt; GRanges object with 887980 ranges and 5 metadata columns:</span></span>
@@ -254,7 +246,6 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 <p>It is always advisable to sort GRanges objects and keep standard chromsomes:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">plyranges</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'plyranges' was built under R version 4.2.1</span></span>
 <span><span class="va">CTCF_hg38_all</span> <span class="op">&lt;-</span> <span class="va">CTCF_hg38_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">keepStandardChromosomes</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">CTCF_hg38</span> <span class="op">&lt;-</span> <span class="va">CTCF_hg38</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">keepStandardChromosomes</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Save the data in a BED file, if needed.</p>
@@ -262,13 +253,31 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 <code class="sourceCode R"><span><span class="co"># Note that rtracklayer::import and rtracklayer::export perform unexplained</span></span>
 <span><span class="co"># start coordinate conversion, likely related to 0- and 1-based coordinate</span></span>
 <span><span class="co"># system. We recommend converting GRanges to a data frame and save tab-separated</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">CTCF_hg38</span><span class="op">)</span>, </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.table</a></span><span class="op">(</span><span class="va">CTCF_hg38_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span>, </span>
+<span>            file <span class="op">=</span> <span class="st">"CTCF_hg38_all.bed"</span>,</span>
+<span>            sep <span class="op">=</span> <span class="st">"\t"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span>, col.names <span class="op">=</span> <span class="cn">FALSE</span>, quote <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.table</a></span><span class="op">(</span><span class="va">CTCF_hg38</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span>, </span>
 <span>            file <span class="op">=</span> <span class="st">"CTCF_hg38.bed"</span>,</span>
 <span>            sep <span class="op">=</span> <span class="st">"\t"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span>, col.names <span class="op">=</span> <span class="cn">FALSE</span>, quote <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p>Create an <a href="https://software.broadinstitute.org/software/igv/" class="external-link">IGV</a> XML session file out of the saved BED files using the <em><a href="https://bioconductor.org/packages/3.16/tracktables" class="external-link">tracktables</a></em> package. See <code>vignette("tracktables", package = "tracktables")</code> for more details.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">tracktables</span><span class="op">)</span> <span class="co"># BiocManager::install("tracktables")</span></span>
+<span><span class="co"># Sample sheet metadata</span></span>
+<span><span class="va">SampleSheet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>SampleName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CTCF all"</span>, <span class="st">"CTCF MA0139.1"</span><span class="op">)</span>,</span>
+<span>                          Description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"All CTCF matrices from JASPAR2022"</span>,</span>
+<span>                                          <span class="st">"MA0139.1 CTCF matrix from JASPAR2022"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># File sheet linking files with sample names</span></span>
+<span><span class="va">FileSheet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>SampleName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CTCF all"</span>, <span class="st">"CTCF MA0139.1"</span><span class="op">)</span>,</span>
+<span>                        bigwig <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>                        interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CTCF_hg38_all.bed"</span>, <span class="st">"CTCF_hg38.bed"</span><span class="op">)</span>,</span>
+<span>                        bam <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Creating an IGV session XML file</span></span>
+<span><span class="fu">MakeIGVSession</span><span class="op">(</span><span class="va">SampleSheet</span>, <span class="va">FileSheet</span>, </span>
+<span>               igvdirectory <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"CTCF_from_JASPAR2022"</span>, <span class="st">"hg38"</span><span class="op">)</span></span></code></pre></div>
 <p>Note that the <a href="https://meme-suite.org/meme/doc/fimo.html" class="external-link">FIMO</a> tool detects CTCF binding sites using the 1e-4 p-value threshold by default (the more significant p-value corresponds to the more confidently detected CTCF motif). We found that this threshold may be too permissive. Using the <a href="https://screen.encodeproject.org/" class="external-link">ENCODE SCREEN</a> database as ground truth, we found 1e-6 as the optimal threshold providing approximately 80% true positive rate. However, less significant CTCF motifs may be cell type-specific or have weaker CTCF binding and therefore be missed by conventional peak callers. If cell type-specific CTCF binding is of interest, we recommend exploring less significant CTCF sites.</p>
 <p><img src="reference/figures/Figure_human_pvalues_threshold.png" width="100%"></p>
 <p>To filter the GRanges object and keep high-confidence CTCF sites, use:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check length before filtering</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF motifs at the default 1e-4 threshold:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Number of CTCF motifs at the default 1e-4 threshold: 887980"</span></span>
@@ -279,20 +288,20 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 <span><span class="co"># Similarly, filter</span></span>
 <span><span class="va">CTCF_hg38_all_filtered</span> <span class="op">&lt;-</span> <span class="va">CTCF_hg38_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">plyranges</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&lt;</span> <span class="fl">1e-6</span><span class="op">)</span></span></code></pre></div>
 <p>Given some databases provide multiple CTCF PWMs, one CTCF site may be detected multiple times resulting in overlapping CTCF sites. For example, the proportion of overlapping CTCF sites in the <code>CTCF_hg38_all_filtered</code> object containing CTCF sites detected by three matrices nearly 40%:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Proportion of overlapping enrtries</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/findOverlaps-methods.html" class="external-link">findOverlaps</a></span><span class="op">(</span><span class="va">CTCF_hg38_all</span>, <span class="va">CTCF_hg38_all</span><span class="op">)</span></span>
 <span><span class="va">prop_overlap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">queryHits</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">prop_overlap</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">prop_overlap</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"1"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38_all</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.375093</span></span></code></pre></div>
 <p>The proportion of overlapping CTCF sites in the <code>CTCF_hg38_filtered</code> object containing CTCF sites detected by the <a href="https://jaspar.genereg.net/matrix/MA0139.1/" class="external-link">MA0139.1</a> matrix is less than 2.5%</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/findOverlaps-methods.html" class="external-link">findOverlaps</a></span><span class="op">(</span><span class="va">CTCF_hg38</span>, <span class="va">CTCF_hg38</span><span class="op">)</span></span>
 <span><span class="va">prop_overlap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">queryHits</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">prop_overlap</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">prop_overlap</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"1"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.0233485</span></span></code></pre></div>
 <p>Reducing them (merging overlapping CTCF sites), combined with 1E-6 cutoff filtering, yields the number of CTCF sites comparable to previously reported.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF_hg38 motifs at the 1e-6 threshold AND reduced:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38_filtered</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/inter-range-methods.html" class="external-link">reduce</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Number of CTCF_hg38 motifs at the 1e-6 threshold AND reduced: 21652"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of CTCF_hg38_all motifs at the 1e-6 threshold AND reduced:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CTCF_hg38_all_filtered</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/inter-range-methods.html" class="external-link">reduce</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -1126,24 +1135,8 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>Below is the citation output from using <code>citation('CTCF')</code> in R. Please run this yourself to check for any updates on how to cite <strong>CTCF</strong>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"CTCF"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; To cite package 'CTCF' in publications use:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Dozmorov MG, Davis E, Mu W, Lee S, Triche T, Phanstiel D, Love M</span></span>
-<span><span class="co">#&gt;   (2022). _CTCF_. https://github.com/mdozmorov/CTCF/CTCF - R package</span></span>
-<span><span class="co">#&gt;   version 0.99.9, &lt;https://github.com/mdozmorov/CTCF&gt;.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   @Manual{,</span></span>
-<span><span class="co">#&gt;     title = {CTCF},</span></span>
-<span><span class="co">#&gt;     author = {Mikhail G. Dozmorov and Eric Davis and Wancen Mu and Stuart Lee and Tim Triche and Douglas Phanstiel and Michael Love},</span></span>
-<span><span class="co">#&gt;     year = {2022},</span></span>
-<span><span class="co">#&gt;     url = {https://github.com/mdozmorov/CTCF},</span></span>
-<span><span class="co">#&gt;     note = {https://github.com/mdozmorov/CTCF/CTCF - R package version 0.99.9},</span></span>
-<span><span class="co">#&gt;   }</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"CTCF"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <!--
 Please note that the *[CTCF](https://bioconductor.org/packages/3.16/CTCF)* was only made possible thanks to many other R and 
 bioinformatics software authors, which are cited either in the vignettes and/or 
@@ -1230,7 +1223,7 @@ For more details, check the `dev` directory.
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer>
