@@ -288,6 +288,7 @@ jobs:
         ## branch (erasing anything you haven't version controlled!) and
         ## makes the git history recognizable by pkgdown.
 
+
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@master
