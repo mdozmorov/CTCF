@@ -31,8 +31,7 @@ p-value, q-value, and the motif sequence.
 **Please, note that the updated CTCF objects will be available in 
 Bioconductor/AnnotationHub 3.16.** To test the following code, use the 
 `bioconductor::devel` Docker image. Run:
-
-```bash
+&#10;```bash
 docker run -e PASSWORD=password -p 8787:8787 -d --rm -v $(pwd):/home/rstudio bioconductor/bioconductor_docker:devel
 ```
 Open http://localhost:8787 and login using `rstudio/password` credentials.
@@ -479,6 +478,28 @@ the Xe-Y threshold.
 | mm9.SwissRegulon_human_and_mouse.RData                  | mm9 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO      | mm9    | Mus musculus |    10090 | SwissRegulon     | 1,066,676                    | 1,052,374                                | 39,510                       | 39,484                                   |
 | mm8.CTCFBSDB.CTCF_predicted_mouse.RData                 | mm8 CTCF predicted motifs from <https://insulatordb.uthsc.edu/>                                     | mm8    | Mus musculus |    10090 | CTCFBSDB 2.0     | 5,504                        | 5,493                                    | \-                           | \-                                       |
 
+# Future development
+
+- High-resolution CTCF footprinting, K562 cell line. CTCF MNase HiChIP
+  data, long fragments correspond to nucleosome-protected DNA whereas
+  short fragments arise from CTCF-protected DNA.
+  [FactorFinder](https://github.com/aryeelab/cohesin_extrusion_reproducibility)
+  tool for near-base-pair resolution CTCF detection, uses the
+  distribution of short fragments around a CTCF binding site.
+  Benchmarking against CTCF motif location, ChIP-seq peaks, loop
+  anchors. A model of topological regulation by partially extruded CTCF
+  loops. Data to be available.
+  <details>
+  <summary>
+  Paper
+  </summary>
+  Sept, Corriene E., Y. Esther Tak, Christian G. Cerda-Smith, Haley M.
+  Hutchinson, Viraat Goel, Marco Blanchette, Mital S. Bhakta, et
+  al. “High-Resolution CTCF Footprinting Reveals Impact of Chromatin
+  State on Cohesin Extrusion Dynamics.” Preprint. Genomics, October
+  23, 2023. <https://doi.org/10.1101/2023.10.20.563340>.
+  </details>
+
 ## Citation
 
 Below is the citation output from using `citation('CTCF')` in R. Please
@@ -492,16 +513,15 @@ print(citation("CTCF"), bibtex = TRUE)
 Please note that the *[CTCF](https://bioconductor.org/packages/3.16/CTCF)* was only made possible thanks to many other R and 
 bioinformatics software authors, which are cited either in the vignettes and/or 
 the paper(s) describing this package.
-
-## Development tools
-
-* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through *[usethis](https://CRAN.R-project.org/package=usethis)*, *[remotes](https://CRAN.R-project.org/package=remotes)*, and *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
+&#10;## Additional references
+&#10;- Marina-Zárate, Ester, Ana Rodríguez-Ronchel, Manuel J. Gómez, Fátima Sánchez-Cabo, and Almudena R. Ramiro. "Low affinity CTCF binding drives transcriptional regulation whereas high affinity binding encompasses architectural functions." iScience (2023). https://doi.org/10.1016/j.isci.2023.106106
+&#10;## Development tools
+&#10;* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through *[usethis](https://CRAN.R-project.org/package=usethis)*, *[remotes](https://CRAN.R-project.org/package=remotes)*, and *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
 * Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh) and *[covr](https://CRAN.R-project.org/package=covr)*.
 * The [documentation website](http://mdozmorov.github.io/CTCF) is automatically updated thanks to *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
 * The code is styled automatically thanks to *[styler](https://CRAN.R-project.org/package=styler)*.
 * The documentation is formatted thanks to *[devtools](https://CRAN.R-project.org/package=devtools)* and *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
-
-For more details, check the `dev` directory.
+&#10;For more details, check the `dev` directory.
 -->
 
 This package was developed using
