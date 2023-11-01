@@ -12,20 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Genomic coordinates of CTCF binding sites, with orientation">
-<meta property="og:description" content="Genomic coordinates of CTCF binding sites, with strand orientation 
-  (directionality of binding). Position weight matrices (PWMs) from JASPAR, 
-  HOCOMOCO, CIS-BP, CTCFBSDB, SwissRegulon, Jolma 2013, were used to uniformly 
-  predict CTCF binding sites using FIMO (default settings) on human 
-  (hg18, hg19, hg38, T2T) and mouse (mm9, mm10, mm39) genome assemblies. 
-  Extra columns include motif/PWM name (e.g., MA0139.1), score, p-value, 
-  q-value, and the motif sequence. It is recommended to filter FIMO-predicted 
-  sites by 1e-6 p-value threshold instead of using the default 1e-4 threshold. 
-  Experimentally obtained CTCF-bound cis-regulatory elements from ENCODE SCREEN 
-  and predicted CTCF sites from CTCFBSDB are also included. Selected data are 
-  lifted over from a different genome assembly as we demonstrated liftOver 
-  is a viable option to obtain CTCF coordinates in different genome assemblies. 
-  CTCF sites obtained using JASPAR's MA0139.1 PWM and filtered at 1e-6 p-value 
-  threshold are recommended.">
+<meta property="og:description" content="Genomic coordinates of CTCF binding sites, with strand orientation (directionality of binding). Position weight matrices (PWMs) from JASPAR, HOCOMOCO, CIS-BP, CTCFBSDB, SwissRegulon, Jolma 2013, were used to uniformly predict CTCF binding sites using FIMO (default settings) on human (hg18, hg19, hg38, T2T) and mouse (mm9, mm10, mm39) genome assemblies. Extra columns include motif/PWM name (e.g., MA0139.1), score, p-value, q-value, and the motif sequence. It is recommended to filter FIMO-predicted sites by 1e-6 p-value threshold instead of using the default 1e-4 threshold. Experimentally obtained CTCF-bound cis-regulatory elements from ENCODE SCREEN and predicted CTCF sites from CTCFBSDB are also included. Selected data are lifted over from a different genome assembly as we demonstrated liftOver is a viable option to obtain CTCF coordinates in different genome assemblies. CTCF sites obtained using JASPAR's MA0139.1 PWM and filtered at 1e-6 p-value threshold are recommended.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -93,8 +80,7 @@
 **Please, note that the updated CTCF objects will be available in 
 Bioconductor/AnnotationHub 3.16.** To test the following code, use the 
 `bioconductor::devel` Docker image. Run:
-
-```bash
+&#10;```bash
 docker run -e PASSWORD=password -p 8787:8787 -d --rm -v $(pwd):/home/rstudio bioconductor/bioconductor_docker:devel
 ```
 Open http://localhost:8787 and login using `rstudio/password` credentials.
@@ -1131,6 +1117,19 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section level1">
+<h1 id="future-development">Future development<a class="anchor" aria-label="anchor" href="#future-development"></a>
+</h1>
+<ul>
+<li>High-resolution CTCF footprinting, K562 cell line. CTCF MNase HiChIP data, long fragments correspond to nucleosome-protected DNA whereas short fragments arise from CTCF-protected DNA. <a href="https://github.com/aryeelab/cohesin_extrusion_reproducibility" class="external-link">FactorFinder</a> tool for near-base-pair resolution CTCF detection, uses the distribution of short fragments around a CTCF binding site. Benchmarking against CTCF motif location, ChIP-seq peaks, loop anchors. A model of topological regulation by partially extruded CTCF loops. Data to be available.
+<details><summary>
+Paper
+</summary>
+Sept, Corriene E., Y. Esther Tak, Christian G. Cerda-Smith, Haley M. Hutchinson, Viraat Goel, Marco Blanchette, Mital S. Bhakta, et al. “High-Resolution CTCF Footprinting Reveals Impact of Chromatin State on Cohesin Extrusion Dynamics.” Preprint. Genomics, October 23, 2023. <a href="https://doi.org/10.1101/2023.10.20.563340" class="external-link uri">https://doi.org/10.1101/2023.10.20.563340</a>.
+</details>
+</li>
+</ul>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
@@ -1141,16 +1140,15 @@ Open http://localhost:8787 and login using `rstudio/password` credentials.
 Please note that the *[CTCF](https://bioconductor.org/packages/3.16/CTCF)* was only made possible thanks to many other R and 
 bioinformatics software authors, which are cited either in the vignettes and/or 
 the paper(s) describing this package.
-
-## Development tools
-
-* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through *[usethis](https://CRAN.R-project.org/package=usethis)*, *[remotes](https://CRAN.R-project.org/package=remotes)*, and *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
+&#10;## Additional references
+&#10;- Marina-Zárate, Ester, Ana Rodríguez-Ronchel, Manuel J. Gómez, Fátima Sánchez-Cabo, and Almudena R. Ramiro. "Low affinity CTCF binding drives transcriptional regulation whereas high affinity binding encompasses architectural functions." iScience (2023). https://doi.org/10.1016/j.isci.2023.106106
+&#10;## Development tools
+&#10;* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through *[usethis](https://CRAN.R-project.org/package=usethis)*, *[remotes](https://CRAN.R-project.org/package=remotes)*, and *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
 * Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh) and *[covr](https://CRAN.R-project.org/package=covr)*.
 * The [documentation website](http://mdozmorov.github.io/CTCF) is automatically updated thanks to *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
 * The code is styled automatically thanks to *[styler](https://CRAN.R-project.org/package=styler)*.
 * The documentation is formatted thanks to *[devtools](https://CRAN.R-project.org/package=devtools)* and *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
-
-For more details, check the `dev` directory.
+&#10;For more details, check the `dev` directory.
 -->
 <p>This package was developed using <em><a href="https://bioconductor.org/packages/3.16/biocthis" class="external-link">biocthis</a></em>.</p>
 </div>
