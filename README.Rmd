@@ -289,6 +289,11 @@ knitr::kable(mtx)
   Sept, Corriene E., Y. Esther Tak, Christian G. Cerda-Smith, Haley M. Hutchinson, Viraat Goel, Marco Blanchette, Mital S. Bhakta, et al. “High-Resolution CTCF Footprinting Reveals Impact of Chromatin State on Cohesin Extrusion Dynamics.” Preprint. Genomics, October 23, 2023. https://doi.org/10.1101/2023.10.20.563340.
 </details>
 
+- Divergent CTCF sites are enriched at boundaries, convergent CTCF sites mark the interior of TADs, short loops in the 5-100kb range. Good intro about TADs. CTCF orientation is not linked to the direction of transcription. Definition of eight orientation patterns. Supplementary data: Table S1 - CTCF coordinates with directionality, Table S3 - consensus CTCF coordinates. <details>
+  <summary>Paper</summary>
+  Nanni, Luca, Stefano Ceri, and Colin Logie. "Spatial patterns of CTCF sites define the anatomy of TADs and their boundaries." Genome biology 21 (2020): 1-25. https://doi.org/10.1186/s13059-020-02108-x
+</summary>
+
 ## Citation
 
 Below is the citation output from using `citation('CTCF')` in R. Please

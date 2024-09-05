@@ -7,7 +7,7 @@
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/CTCF.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/CTCF) [![R-CMD-check-bioc](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/mdozmorov/CTCF/actions/workflows/R-CMD-check-bioc.yaml) -->
 
-*[CTCF](https://bioconductor.org/packages/3.16/CTCF)* defines an
+*[CTCF](https://bioconductor.org/packages/3.19/CTCF)* defines an
 AnnotationHub resource representing genomic coordinates of
 [FIMO](https://meme-suite.org/meme/doc/fimo.html)-predicted CTCF binding
 sites for human and mouse genomes, including the
@@ -31,7 +31,7 @@ p-value, q-value, and the motif sequence.
 **Please, note that the updated CTCF objects will be available in 
 Bioconductor/AnnotationHub 3.16.** To test the following code, use the 
 `bioconductor::devel` Docker image. Run:
-&#10;```bash
+&#10;``` bash
 docker run -e PASSWORD=password -p 8787:8787 -d --rm -v $(pwd):/home/rstudio bioconductor/bioconductor_docker:devel
 ```
 Open http://localhost:8787 and login using `rstudio/password` credentials.
@@ -62,12 +62,11 @@ Then, install additional packages using the following code:
 ``` r
 suppressMessages(library(AnnotationHub))
 ah <- AnnotationHub()
-#> snapshotDate(): 2022-10-31
 query_data <- subset(ah, preparerclass == "CTCF")
 # Explore the AnnotationHub object
 query_data
 #> AnnotationHub with 51 records
-#> # snapshotDate(): 2022-10-31
+#> # snapshotDate(): 2024-04-30
 #> # $dataprovider: JASPAR 2022, CTCFBSDB 2.0, SwissRegulon, Jolma 2013, HOCOMO...
 #> # $species: Homo sapiens, Mus musculus
 #> # $rdataclass: GRanges
@@ -105,7 +104,7 @@ subset(query_data, species == "Homo sapiens" &
                    genome == "hg38" & 
                    dataprovider == "JASPAR 2022")
 #> AnnotationHub with 2 records
-#> # snapshotDate(): 2022-10-31
+#> # snapshotDate(): 2024-04-30
 #> # $dataprovider: JASPAR 2022
 #> # $species: Homo sapiens
 #> # $rdataclass: GRanges
@@ -129,8 +128,12 @@ To retrieve, we’ll use:
 ``` r
 # hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2
 CTCF_hg38_all <- query_data[["AH104727"]]
+#> downloading 1 resources
+#> retrieving 1 resource
 #> loading from cache
 #> require("GenomicRanges")
+#> Warning: package 'S4Vectors' was built under R version 4.4.1
+#> Warning: package 'IRanges' was built under R version 4.4.1
 CTCF_hg38_all
 #> GRanges object with 3093041 ranges and 5 metadata columns:
 #>             seqnames            ranges strand |                   name
@@ -170,6 +173,8 @@ PWM. To retrieve:
 ``` r
 # hg38.MA0139.1
 CTCF_hg38 <- query_data[["AH104729"]]
+#> downloading 1 resources
+#> retrieving 1 resource
 #> loading from cache
 CTCF_hg38
 #> GRanges object with 887980 ranges and 5 metadata columns:
@@ -228,7 +233,7 @@ write.table(CTCF_hg38 %>% sort() %>% as.data.frame(),
 
 Create an [IGV](https://software.broadinstitute.org/software/igv/) XML
 session file out of the saved BED files using the
-*[tracktables](https://bioconductor.org/packages/3.16/tracktables)*
+*[tracktables](https://bioconductor.org/packages/3.19/tracktables)*
 package. See `vignette("tracktables", package = "tracktables")` for more
 details.
 
@@ -368,24 +373,24 @@ lengths; “URL” - direct links to motif pages. Jaspar, Hocomoco, Jolma
 2013 PWMs were downloaded from the [MEME
 database](https://meme-suite.org/meme/doc/download.html).
 
-| Motif                                                | Length..bp. | URL                                                                                 |
-|:-----------------------------------------------------|:------------|:------------------------------------------------------------------------------------|
-| Jaspar2022                                           |             |                                                                                     |
-| MA0139.1                                             | 19          | <https://jaspar2022.genereg.net/matrix/MA0139.1>                                    |
-| MA1929.1                                             | 34          | <http://jaspar2022.genereg.net/matrix/MA1929.1>                                     |
-| MA1930.1                                             | 35          | <http://jaspar2022.genereg.net/matrix/MA1930.1>                                     |
-| HOCOMOCO v11                                         |             |                                                                                     |
-| CTCF_HUMAN.H11MO.0.A                                 | 19          | <http://hocomoco.autosome.ru/motif/CTCF_HUMAN.H11MO.0.A>                            |
-| CTCF_MOUSE.H11MO.0.A                                 | 20          | <http://hocomoco.autosome.ru/motif/CTCF_MOUSE.H11MO.0.A>                            |
-| SwissRegulon                                         |             |                                                                                     |
-| CTCF.p2                                              | 20          | <https://swissregulon.unibas.ch/wm/?wm=CTCF.p2&org=hg18>                            |
-| Jolma 2013                                           |             |                                                                                     |
-| CTCF_full                                            | 17          | <http://floresta.eead.csic.es/footprintdb/index.php?db=HumanTF:1.0&motif=CTCF_full> |
-| CTCFBSDB                                             |             |                                                                                     |
-| EMBL_M1, EMBL_M2, MIT_LM2, MIT_LM7, MIT_LM23, REN_20 | 9-20        | <https://insulatordb.uthsc.edu/download/CTCFBSDB_PWM.mat>                           |
-| CIS-BP                                               |             |                                                                                     |
-| 83 CTCF (Homo sapiens) C2H2 ZF                       | 11-21       | <http://cisbp.ccbr.utoronto.ca/TFreport.php?searchTF=T094831_2.00>                  |
-| 2 Ctcf (Mus musculus) C2H2 ZF                        | 15, 20      | <http://cisbp.ccbr.utoronto.ca/TFreport.php?searchTF=T100985_2.00>                  |
+| Motif | Length..bp. | URL |
+|:---|:---|:---|
+| Jaspar2022 |  |  |
+| MA0139.1 | 19 | <https://jaspar2022.genereg.net/matrix/MA0139.1> |
+| MA1929.1 | 34 | <http://jaspar2022.genereg.net/matrix/MA1929.1> |
+| MA1930.1 | 35 | <http://jaspar2022.genereg.net/matrix/MA1930.1> |
+| HOCOMOCO v11 |  |  |
+| CTCF_HUMAN.H11MO.0.A | 19 | <http://hocomoco.autosome.ru/motif/CTCF_HUMAN.H11MO.0.A> |
+| CTCF_MOUSE.H11MO.0.A | 20 | <http://hocomoco.autosome.ru/motif/CTCF_MOUSE.H11MO.0.A> |
+| SwissRegulon |  |  |
+| CTCF.p2 | 20 | <https://swissregulon.unibas.ch/wm/?wm=CTCF.p2&org=hg18> |
+| Jolma 2013 |  |  |
+| CTCF_full | 17 | <http://floresta.eead.csic.es/footprintdb/index.php?db=HumanTF:1.0&motif=CTCF_full> |
+| CTCFBSDB |  |  |
+| EMBL_M1, EMBL_M2, MIT_LM2, MIT_LM7, MIT_LM23, REN_20 | 9-20 | <https://insulatordb.uthsc.edu/download/CTCFBSDB_PWM.mat> |
+| CIS-BP |  |  |
+| 83 CTCF (Homo sapiens) C2H2 ZF | 11-21 | <http://cisbp.ccbr.utoronto.ca/TFreport.php?searchTF=T094831_2.00> |
+| 2 Ctcf (Mus musculus) C2H2 ZF | 15, 20 | <http://cisbp.ccbr.utoronto.ca/TFreport.php?searchTF=T100985_2.00> |
 
 **CTCF motif logos.** PWMs from (A) MEME, (B) CTCFBSDB, (C) CIS-BP
 human, and (D) CIS-BP mouse databases. Clustering and alignment of
@@ -403,14 +408,14 @@ GRanges objects were created.
 “Number” - number of binding sites; “Assembly” - genome assembly;
 “URL” - direct link to data download.
 
-| Database                           | Number | Assembly | URL                                                                   |
-|:-----------------------------------|-------:|:---------|:----------------------------------------------------------------------|
-| CTCFBSDB 2.0                       |     NA |          |                                                                       |
-| Predicted human CTCF binding sites |  13401 | hg18     | <https://insulatordb.uthsc.edu/download/allcomp.txt.gz>               |
-| Predicted mouse CTCF binding sites |   5504 | mm8      | <https://insulatordb.uthsc.edu/download/allcomp.txt.gz>               |
-| SCREEN ENCODE                      |     NA |          |                                                                       |
-| Human CTCF-bound cCREs             | 450641 | hg38     | <https://api.wenglab.org/screen_v13/fdownloads/cCREs/GRCh38-CTCF.bed> |
-| Mouse CTCF-bound cCREs             |  82777 | mm10     | <https://api.wenglab.org/screen_v13/fdownloads/cCREs/mm10-CTCF.bed>   |
+| Database | Number | Assembly | URL |
+|:---|---:|:---|:---|
+| CTCFBSDB 2.0 | NA |  |  |
+| Predicted human CTCF binding sites | 13401 | hg18 | <https://insulatordb.uthsc.edu/download/allcomp.txt.gz> |
+| Predicted mouse CTCF binding sites | 5504 | mm8 | <https://insulatordb.uthsc.edu/download/allcomp.txt.gz> |
+| SCREEN ENCODE | NA |  |  |
+| Human CTCF-bound cCREs | 450641 | hg38 | <https://api.wenglab.org/screen_v13/fdownloads/cCREs/GRCh38-CTCF.bed> |
+| Mouse CTCF-bound cCREs | 82777 | mm10 | <https://api.wenglab.org/screen_v13/fdownloads/cCREs/mm10-CTCF.bed> |
 
 # All GRanges objects included in the package
 
@@ -424,59 +429,59 @@ Xe-Y threshold; “Non-overlapping (p-value threshold Xe-Y)” - number of
 non-overlapping CTCF binding sites (overlapping regions are merged) at
 the Xe-Y threshold.
 
-| ID                                                      | Description                                                                                         | Genome | Species      | Taxonomy | Data.provider    | All..p.value.threshold.1e.4. | Non.overlapping..p.value.threshold.1e.4. | All..p.value.threshold.1e.6. | Non.overlapping..p.value.threshold.1e.6. |
-|:--------------------------------------------------------|:----------------------------------------------------------------------------------------------------|:-------|:-------------|---------:|:-----------------|:-----------------------------|:-----------------------------------------|:-----------------------------|:-----------------------------------------|
-| T2T.CIS_BP_2.00_Homo_sapiens.RData                      | T2T CTCF motifs detected using human PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO    | T2T    | Homo sapiens |     9606 | CIS-BP           | 85,004,288                   | 11,610,275                               | 1,642,859                    | 308,511                                  |
-| T2T.CTCFBSDB_PWM.RData                                  | T2T CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO          | T2T    | Homo sapiens |     9606 | CTCFBSDB 2.0     | 5,385,530                    | 3,452,150                                | 98,088                       | 61,030                                   |
-| T2T.HOCOMOCOv11_core_HUMAN_mono_meme_format.RData       | T2T CTCF motifs detected using human PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO  | T2T    | Homo sapiens |     9606 | HOCOMOCO v11     | 927,477                      | 909,247                                  | 21,491                       | 21,450                                   |
-| T2T.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData  | T2T CTCF motifs detected using human PWM matrices from <https://jaspar.genereg.net/>, by FIMO       | T2T    | Homo sapiens |     9606 | JASPAR 2022      | 3,196,774                    | 2,538,458                                | 75,126                       | 64,767                                   |
-| T2T.Jolma2013.RData                                     | T2T CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO          | T2T    | Homo sapiens |     9606 | Jolma 2013       | 342,765                      | 341,669                                  | 6,857                        | 6,857                                    |
-| T2T.MA0139.1.RData                                      | T2T CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO      | T2T    | Homo sapiens |     9606 | JASPAR 2022      | 916,829                      | 905,231                                  | 22,149                       | 22,131                                   |
-| T2T.SwissRegulon_human_and_mouse.RData                  | T2T CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO      | T2T    | Homo sapiens |     9606 | SwissRegulon     | 1,106,234                    | 1,094,142                                | 23,050                       | 23,006                                   |
-| hg38.CIS_BP_2.00_Homo_sapiens.RData                     | hg38 CTCF motifs detected using human PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO   | hg38   | Homo sapiens |     9606 | CIS-BP           | 82,804,664                   | 11,502,445                               | 1,612,042                    | 303,446                                  |
-| hg38.CTCFBSDB.CTCF_predicted_human.RData                | hg38 CTCF predicted motifs from <https://insulatordb.uthsc.edu/>                                    | hg38   | Homo sapiens |     9606 | CTCFBSDB 2.0     | 5,212,674                    | 3,343,301                                | 97,491                       | 60,648                                   |
-| hg38.CTCFBSDB_PWM.RData                                 | hg38 CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO         | hg38   | Homo sapiens |     9606 | CTCFBSDB 2.0     | 13,357                       | 13,278                                   | \-                           | \-                                       |
-| hg38.HOCOMOCOv11_core_HUMAN_mono_meme_format.RData      | hg38 CTCF motifs detected using human PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | hg38   | Homo sapiens |     9606 | HOCOMOCO v11     | 891,816                      | 875,038                                  | 21,020                       | 20,975                                   |
-| hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | hg38 CTCF motifs detected using human PWM matrices from <https://jaspar.genereg.net/>, by FIMO      | hg38   | Homo sapiens |     9606 | JASPAR 2022      | 3,093,041                    | 2,456,234                                | 73,545                       | 63,572                                   |
-| hg38.Jolma2013.RData                                    | hg38 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO         | hg38   | Homo sapiens |     9606 | Jolma 2013       | 330,892                      | 329,834                                  | 6,823                        | 6,823                                    |
-| hg38.MA0139.1.RData                                     | hg38 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO     | hg38   | Homo sapiens |     9606 | JASPAR 2022      | 887,980                      | 876,938                                  | 21,671                       | 21,652                                   |
-| hg38.SCREEN.GRCh38_CTCF.RData                           | hg38 CTCF-bound human cis-regulatory elements from <https://screen.encodeproject.org/>              | hg38   | Homo sapiens |     9606 | ENCODE SCREEN v3 | 450,641                      | 444,379                                  | \-                           | \-                                       |
-| hg38.SwissRegulon_human_and_mouse.RData                 | hg38 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO     | hg38   | Homo sapiens |     9606 | SwissRegulon     | 1,079,055                    | 1,067,050                                | 22,569                       | 22,521                                   |
-| hg19.CIS_BP_2.00_Homo_sapiens.RData                     | hg19 CTCF motifs detected using human PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO   | hg19   | Homo sapiens |     9606 | CIS-BP           | 81,569,702                   | 11,355,221                               | 1,595,787                    | 298,489                                  |
-| hg19.CTCFBSDB.CTCF_predicted_human.RData                | hg19 CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO         | hg19   | Homo sapiens |     9606 | CTCFBSDB 2.0     | 5,118,501                    | 3,294,516                                | 93,692                       | 57,137                                   |
-| hg19.CTCFBSDB_PWM.RData                                 | hg19 CTCF predicted motifs from <https://insulatordb.uthsc.edu/>                                    | hg19   | Homo sapiens |     9606 | CTCFBSDB 2.0     | 13,355                       | 13,294                                   | \-                           | \-                                       |
-| hg19.HOCOMOCOv11_core_HUMAN_mono_meme_format.RData      | hg19 CTCF motifs detected using human PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | hg19   | Homo sapiens |     9606 | HOCOMOCO v11     | 876,822                      | 860,212                                  | 20,853                       | 20,811                                   |
-| hg19.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | hg19 CTCF motifs detected using human PWM matrices from <https://jaspar.genereg.net/>, by FIMO      | hg19   | Homo sapiens |     9606 | JASPAR 2022      | 3,035,951                    | 2,414,604                                | 71,825                       | 61,940                                   |
-| hg19.Jolma2013.RData                                    | hg19 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO         | hg19   | Homo sapiens |     9606 | Jolma 2013       | 315,914                      | 314,858                                  | 6,734                        | 6,734                                    |
-| hg19.MA0139.1.RData                                     | hg19 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO     | hg19   | Homo sapiens |     9606 | JASPAR 2022      | 871,136                      | 860,252                                  | 21,511                       | 21,491                                   |
-| hg19.SwissRegulon_human_and_mouse.RData                 | hg19 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO     | hg19   | Homo sapiens |     9606 | SwissRegulon     | 1,061,972                    | 1,050,085                                | 22,325                       | 22,282                                   |
-| hg18.CTCFBSDB.CTCF_predicted_human.RData                | hg18 CTCF predicted motifs from <https://insulatordb.uthsc.edu/>                                    | hg18   | Homo sapiens |     9606 | CTCFBSDB 2.0     | 13,401                       | 13,343                                   | \-                           | \-                                       |
-| hg18.MA0139.1.RData                                     | hg18 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO     | hg18   | Homo sapiens |     9606 | JASPAR 2022      | 869,463                      | 858,603                                  | 21,436                       | 21,416                                   |
-| mm39.CIS_BP_2.00_Mus_musculus.RData                     | mm39 CTCF motifs detected using mouse PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO   | mm39   | Mus musculus |    10090 | CIS-BP           | 1,811,582                    | 1,308,209                                | 101,066                      | 80,637                                   |
-| mm39.CTCFBSDB_PWM.RData                                 | mm39 CTCF predicted motifs from <https://insulatordb.uthsc.edu/>                                    | mm39   | Mus musculus |    10090 | CTCFBSDB 2.0     | 5,476,211                    | 3,237,788                                | 164,967                      | 104,883                                  |
-| mm39.HOCOMOCOv11_core_MOUSE_mono_meme_format.RData      | mm39 CTCF motifs detected using mouse PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | mm39   | Mus musculus |    10090 | HOCOMOCO v11     | 740,710                      | 726,641                                  | 27,620                       | 27,582                                   |
-| mm39.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | mm39 CTCF motifs detected using mouse PWM matrices from <https://jaspar.genereg.net/>, by FIMO      | mm39   | Mus musculus |    10090 | JASPAR 2022      | 2,940,147                    | 2,280,509                                | 109,427                      | 90,585                                   |
-| mm39.Jolma2013.RData                                    | mm39 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO         | mm39   | Mus musculus |    10090 | Jolma 2013       | 423,521                      | 422,552                                  | 12,800                       | 12,797                                   |
-| mm39.MA0139.1.RData                                     | mm39 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO     | mm39   | Mus musculus |    10090 | JASPAR 2022      | 962,332                      | 949,270                                  | 32,210                       | 32,199                                   |
-| mm39.SwissRegulon_human_and_mouse.RData                 | mm39 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO     | mm39   | Mus musculus |    10090 | SwissRegulon     | 1,094,643                    | 1,080,229                                | 40,549                       | 40,523                                   |
-| mm10.CIS_BP_2.00_Mus_musculus.RData                     | mm10 CTCF motifs detected using mouse PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO   | mm10   | Mus musculus |    10090 | CIS-BP           | 1,810,213                    | 1,307,193                                | 101,011                      | 80,592                                   |
-| mm10.CTCFBSDB.CTCF_predicted_mouse.RData                | mm10 CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO         | mm10   | Mus musculus |    10090 | CTCFBSDB 2.0     | 5,472,184                    | 3,235,312                                | 164,855                      | 104,827                                  |
-| mm10.CTCFBSDB_PWM.RData                                 | mm10 CTCF predicted motifs from <https://insulatordb.uthsc.edu/>                                    | mm10   | Mus musculus |    10090 | CTCFBSDB 2.0     | 5,502                        | 5,491                                    | \-                           | \-                                       |
-| mm10.HOCOMOCOv11_core_MOUSE_mono_meme_format.RData      | mm10 CTCF motifs detected using mouse PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | mm10   | Mus musculus |    10090 | HOCOMOCO v11     | 740,100                      | 726,052                                  | 27,604                       | 27,566                                   |
-| mm10.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | mm10 CTCF motifs detected using mouse PWM matrices from <https://jaspar.genereg.net/>, by FIMO      | mm10   | Mus musculus |    10090 | JASPAR 2022      | 2,938,085                    | 2,278,849                                | 109,363                      | 90,532                                   |
-| mm10.Jolma2013.RData                                    | mm10 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO         | mm10   | Mus musculus |    10090 | Jolma 2013       | 423,194                      | 422,225                                  | 12,789                       | 12,786                                   |
-| mm10.MA0139.1.RData                                     | mm10 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO     | mm10   | Mus musculus |    10090 | JASPAR 2022      | 961,635                      | 948,581                                  | 32,188                       | 32,177                                   |
-| mm10.SCREEN.mm10_CTCF.RData                             | mm10 CTCF-bound mouse cis-regulatory elements from <https://screen.encodeproject.org/>              | mm10   | Mus musculus |    10090 | ENCODE SCREEN v3 | 82,777                       | 82,100                                   | \-                           | \-                                       |
-| mm10.SwissRegulon_human_and_mouse.RData                 | mm10 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO     | mm10   | Mus musculus |    10090 | SwissRegulon     | 1,093,870                    | 1,079,467                                | 40,525                       | 40,499                                   |
-| mm9.CIS_BP_2.00_Mus_musculus.RData                      | mm9 CTCF motifs detected using mouse PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO    | mm9    | Mus musculus |    10090 | CIS-BP           | 1,770,520                    | 1,278,081                                | 99,197                       | 79,218                                   |
-| mm9.CTCFBSDB.CTCF_predicted_mouse.RData                 | mm9 CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO          | mm9    | Mus musculus |    10090 | CTCFBSDB 2.0     | 5,335,475                    | 3,150,407                                | 161,014                      | 102,880                                  |
-| mm9.CTCFBSDB_PWM.RData                                  | mm9 CTCF predicted motifs from <https://insulatordb.uthsc.edu/>                                     | mm9    | Mus musculus |    10090 | CTCFBSDB 2.0     | 5,502                        | 5,491                                    | \-                           | \-                                       |
-| mm9.HOCOMOCOv11_core_MOUSE_mono_meme_format.RData       | mm9 CTCF motifs detected using mouse PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO  | mm9    | Mus musculus |    10090 | HOCOMOCO v11     | 725,199                      | 711,236                                  | 27,103                       | 27,065                                   |
-| mm9.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData  | mm9 CTCF motifs detected using mouse PWM matrices from <https://jaspar.genereg.net/>, by FIMO       | mm9    | Mus musculus |    10090 | JASPAR 2022      | 2,879,784                    | 2,230,170                                | 107,506                      | 89,172                                   |
-| mm9.Jolma2013.RData                                     | mm9 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO          | mm9    | Mus musculus |    10090 | Jolma 2013       | 411,345                      | 410,398                                  | 12,309                       | 12,306                                   |
-| mm9.MA0139.1.RData                                      | mm9 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO      | mm9    | Mus musculus |    10090 | JASPAR 2022      | 938,919                      | 925,939                                  | 31,446                       | 31,435                                   |
-| mm9.SwissRegulon_human_and_mouse.RData                  | mm9 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO      | mm9    | Mus musculus |    10090 | SwissRegulon     | 1,066,676                    | 1,052,374                                | 39,510                       | 39,484                                   |
-| mm8.CTCFBSDB.CTCF_predicted_mouse.RData                 | mm8 CTCF predicted motifs from <https://insulatordb.uthsc.edu/>                                     | mm8    | Mus musculus |    10090 | CTCFBSDB 2.0     | 5,504                        | 5,493                                    | \-                           | \-                                       |
+| ID | Description | Genome | Species | Taxonomy | Data.provider | All..p.value.threshold.1e.4. | Non.overlapping..p.value.threshold.1e.4. | All..p.value.threshold.1e.6. | Non.overlapping..p.value.threshold.1e.6. |
+|:---|:---|:---|:---|---:|:---|:---|:---|:---|:---|
+| T2T.CIS_BP_2.00_Homo_sapiens.RData | T2T CTCF motifs detected using human PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO | T2T | Homo sapiens | 9606 | CIS-BP | 85,004,288 | 11,610,275 | 1,642,859 | 308,511 |
+| T2T.CTCFBSDB_PWM.RData | T2T CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO | T2T | Homo sapiens | 9606 | CTCFBSDB 2.0 | 5,385,530 | 3,452,150 | 98,088 | 61,030 |
+| T2T.HOCOMOCOv11_core_HUMAN_mono_meme_format.RData | T2T CTCF motifs detected using human PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | T2T | Homo sapiens | 9606 | HOCOMOCO v11 | 927,477 | 909,247 | 21,491 | 21,450 |
+| T2T.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | T2T CTCF motifs detected using human PWM matrices from <https://jaspar.genereg.net/>, by FIMO | T2T | Homo sapiens | 9606 | JASPAR 2022 | 3,196,774 | 2,538,458 | 75,126 | 64,767 |
+| T2T.Jolma2013.RData | T2T CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO | T2T | Homo sapiens | 9606 | Jolma 2013 | 342,765 | 341,669 | 6,857 | 6,857 |
+| T2T.MA0139.1.RData | T2T CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO | T2T | Homo sapiens | 9606 | JASPAR 2022 | 916,829 | 905,231 | 22,149 | 22,131 |
+| T2T.SwissRegulon_human_and_mouse.RData | T2T CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO | T2T | Homo sapiens | 9606 | SwissRegulon | 1,106,234 | 1,094,142 | 23,050 | 23,006 |
+| hg38.CIS_BP_2.00_Homo_sapiens.RData | hg38 CTCF motifs detected using human PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO | hg38 | Homo sapiens | 9606 | CIS-BP | 82,804,664 | 11,502,445 | 1,612,042 | 303,446 |
+| hg38.CTCFBSDB.CTCF_predicted_human.RData | hg38 CTCF predicted motifs from <https://insulatordb.uthsc.edu/> | hg38 | Homo sapiens | 9606 | CTCFBSDB 2.0 | 5,212,674 | 3,343,301 | 97,491 | 60,648 |
+| hg38.CTCFBSDB_PWM.RData | hg38 CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO | hg38 | Homo sapiens | 9606 | CTCFBSDB 2.0 | 13,357 | 13,278 | \- | \- |
+| hg38.HOCOMOCOv11_core_HUMAN_mono_meme_format.RData | hg38 CTCF motifs detected using human PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | hg38 | Homo sapiens | 9606 | HOCOMOCO v11 | 891,816 | 875,038 | 21,020 | 20,975 |
+| hg38.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | hg38 CTCF motifs detected using human PWM matrices from <https://jaspar.genereg.net/>, by FIMO | hg38 | Homo sapiens | 9606 | JASPAR 2022 | 3,093,041 | 2,456,234 | 73,545 | 63,572 |
+| hg38.Jolma2013.RData | hg38 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO | hg38 | Homo sapiens | 9606 | Jolma 2013 | 330,892 | 329,834 | 6,823 | 6,823 |
+| hg38.MA0139.1.RData | hg38 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO | hg38 | Homo sapiens | 9606 | JASPAR 2022 | 887,980 | 876,938 | 21,671 | 21,652 |
+| hg38.SCREEN.GRCh38_CTCF.RData | hg38 CTCF-bound human cis-regulatory elements from <https://screen.encodeproject.org/> | hg38 | Homo sapiens | 9606 | ENCODE SCREEN v3 | 450,641 | 444,379 | \- | \- |
+| hg38.SwissRegulon_human_and_mouse.RData | hg38 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO | hg38 | Homo sapiens | 9606 | SwissRegulon | 1,079,055 | 1,067,050 | 22,569 | 22,521 |
+| hg19.CIS_BP_2.00_Homo_sapiens.RData | hg19 CTCF motifs detected using human PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO | hg19 | Homo sapiens | 9606 | CIS-BP | 81,569,702 | 11,355,221 | 1,595,787 | 298,489 |
+| hg19.CTCFBSDB.CTCF_predicted_human.RData | hg19 CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO | hg19 | Homo sapiens | 9606 | CTCFBSDB 2.0 | 5,118,501 | 3,294,516 | 93,692 | 57,137 |
+| hg19.CTCFBSDB_PWM.RData | hg19 CTCF predicted motifs from <https://insulatordb.uthsc.edu/> | hg19 | Homo sapiens | 9606 | CTCFBSDB 2.0 | 13,355 | 13,294 | \- | \- |
+| hg19.HOCOMOCOv11_core_HUMAN_mono_meme_format.RData | hg19 CTCF motifs detected using human PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | hg19 | Homo sapiens | 9606 | HOCOMOCO v11 | 876,822 | 860,212 | 20,853 | 20,811 |
+| hg19.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | hg19 CTCF motifs detected using human PWM matrices from <https://jaspar.genereg.net/>, by FIMO | hg19 | Homo sapiens | 9606 | JASPAR 2022 | 3,035,951 | 2,414,604 | 71,825 | 61,940 |
+| hg19.Jolma2013.RData | hg19 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO | hg19 | Homo sapiens | 9606 | Jolma 2013 | 315,914 | 314,858 | 6,734 | 6,734 |
+| hg19.MA0139.1.RData | hg19 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO | hg19 | Homo sapiens | 9606 | JASPAR 2022 | 871,136 | 860,252 | 21,511 | 21,491 |
+| hg19.SwissRegulon_human_and_mouse.RData | hg19 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO | hg19 | Homo sapiens | 9606 | SwissRegulon | 1,061,972 | 1,050,085 | 22,325 | 22,282 |
+| hg18.CTCFBSDB.CTCF_predicted_human.RData | hg18 CTCF predicted motifs from <https://insulatordb.uthsc.edu/> | hg18 | Homo sapiens | 9606 | CTCFBSDB 2.0 | 13,401 | 13,343 | \- | \- |
+| hg18.MA0139.1.RData | hg18 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO | hg18 | Homo sapiens | 9606 | JASPAR 2022 | 869,463 | 858,603 | 21,436 | 21,416 |
+| mm39.CIS_BP_2.00_Mus_musculus.RData | mm39 CTCF motifs detected using mouse PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO | mm39 | Mus musculus | 10090 | CIS-BP | 1,811,582 | 1,308,209 | 101,066 | 80,637 |
+| mm39.CTCFBSDB_PWM.RData | mm39 CTCF predicted motifs from <https://insulatordb.uthsc.edu/> | mm39 | Mus musculus | 10090 | CTCFBSDB 2.0 | 5,476,211 | 3,237,788 | 164,967 | 104,883 |
+| mm39.HOCOMOCOv11_core_MOUSE_mono_meme_format.RData | mm39 CTCF motifs detected using mouse PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | mm39 | Mus musculus | 10090 | HOCOMOCO v11 | 740,710 | 726,641 | 27,620 | 27,582 |
+| mm39.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | mm39 CTCF motifs detected using mouse PWM matrices from <https://jaspar.genereg.net/>, by FIMO | mm39 | Mus musculus | 10090 | JASPAR 2022 | 2,940,147 | 2,280,509 | 109,427 | 90,585 |
+| mm39.Jolma2013.RData | mm39 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO | mm39 | Mus musculus | 10090 | Jolma 2013 | 423,521 | 422,552 | 12,800 | 12,797 |
+| mm39.MA0139.1.RData | mm39 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO | mm39 | Mus musculus | 10090 | JASPAR 2022 | 962,332 | 949,270 | 32,210 | 32,199 |
+| mm39.SwissRegulon_human_and_mouse.RData | mm39 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO | mm39 | Mus musculus | 10090 | SwissRegulon | 1,094,643 | 1,080,229 | 40,549 | 40,523 |
+| mm10.CIS_BP_2.00_Mus_musculus.RData | mm10 CTCF motifs detected using mouse PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO | mm10 | Mus musculus | 10090 | CIS-BP | 1,810,213 | 1,307,193 | 101,011 | 80,592 |
+| mm10.CTCFBSDB.CTCF_predicted_mouse.RData | mm10 CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO | mm10 | Mus musculus | 10090 | CTCFBSDB 2.0 | 5,472,184 | 3,235,312 | 164,855 | 104,827 |
+| mm10.CTCFBSDB_PWM.RData | mm10 CTCF predicted motifs from <https://insulatordb.uthsc.edu/> | mm10 | Mus musculus | 10090 | CTCFBSDB 2.0 | 5,502 | 5,491 | \- | \- |
+| mm10.HOCOMOCOv11_core_MOUSE_mono_meme_format.RData | mm10 CTCF motifs detected using mouse PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | mm10 | Mus musculus | 10090 | HOCOMOCO v11 | 740,100 | 726,052 | 27,604 | 27,566 |
+| mm10.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | mm10 CTCF motifs detected using mouse PWM matrices from <https://jaspar.genereg.net/>, by FIMO | mm10 | Mus musculus | 10090 | JASPAR 2022 | 2,938,085 | 2,278,849 | 109,363 | 90,532 |
+| mm10.Jolma2013.RData | mm10 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO | mm10 | Mus musculus | 10090 | Jolma 2013 | 423,194 | 422,225 | 12,789 | 12,786 |
+| mm10.MA0139.1.RData | mm10 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO | mm10 | Mus musculus | 10090 | JASPAR 2022 | 961,635 | 948,581 | 32,188 | 32,177 |
+| mm10.SCREEN.mm10_CTCF.RData | mm10 CTCF-bound mouse cis-regulatory elements from <https://screen.encodeproject.org/> | mm10 | Mus musculus | 10090 | ENCODE SCREEN v3 | 82,777 | 82,100 | \- | \- |
+| mm10.SwissRegulon_human_and_mouse.RData | mm10 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO | mm10 | Mus musculus | 10090 | SwissRegulon | 1,093,870 | 1,079,467 | 40,525 | 40,499 |
+| mm9.CIS_BP_2.00_Mus_musculus.RData | mm9 CTCF motifs detected using mouse PWM matrices from <http://cisbp.ccbr.utoronto.ca/>, by FIMO | mm9 | Mus musculus | 10090 | CIS-BP | 1,770,520 | 1,278,081 | 99,197 | 79,218 |
+| mm9.CTCFBSDB.CTCF_predicted_mouse.RData | mm9 CTCF motifs detected using PWM matrices from <https://insulatordb.uthsc.edu/>, by FIMO | mm9 | Mus musculus | 10090 | CTCFBSDB 2.0 | 5,335,475 | 3,150,407 | 161,014 | 102,880 |
+| mm9.CTCFBSDB_PWM.RData | mm9 CTCF predicted motifs from <https://insulatordb.uthsc.edu/> | mm9 | Mus musculus | 10090 | CTCFBSDB 2.0 | 5,502 | 5,491 | \- | \- |
+| mm9.HOCOMOCOv11_core_MOUSE_mono_meme_format.RData | mm9 CTCF motifs detected using mouse PWM matrices from <https://hocomoco11.autosome.org/>, by FIMO | mm9 | Mus musculus | 10090 | HOCOMOCO v11 | 725,199 | 711,236 | 27,103 | 27,065 |
+| mm9.JASPAR2022_CORE_vertebrates_non_redundant_v2.RData | mm9 CTCF motifs detected using mouse PWM matrices from <https://jaspar.genereg.net/>, by FIMO | mm9 | Mus musculus | 10090 | JASPAR 2022 | 2,879,784 | 2,230,170 | 107,506 | 89,172 |
+| mm9.Jolma2013.RData | mm9 CTCF motifs detected using PWM matrices from <DOI:10.1016/j.cell.2012.12.009>, by FIMO | mm9 | Mus musculus | 10090 | Jolma 2013 | 411,345 | 410,398 | 12,309 | 12,306 |
+| mm9.MA0139.1.RData | mm9 CTCF motifs detected using MA0139.1 PWM matrix from <https://jaspar.genereg.net/>, by FIMO | mm9 | Mus musculus | 10090 | JASPAR 2022 | 938,919 | 925,939 | 31,446 | 31,435 |
+| mm9.SwissRegulon_human_and_mouse.RData | mm9 CTCF motifs detected using PWM matrices from <https://swissregulon.unibas.ch/sr/>, by FIMO | mm9 | Mus musculus | 10090 | SwissRegulon | 1,066,676 | 1,052,374 | 39,510 | 39,484 |
+| mm8.CTCFBSDB.CTCF_predicted_mouse.RData | mm8 CTCF predicted motifs from <https://insulatordb.uthsc.edu/> | mm8 | Mus musculus | 10090 | CTCFBSDB 2.0 | 5,504 | 5,493 | \- | \- |
 
 # Future development
 
@@ -499,6 +504,20 @@ the Xe-Y threshold.
   State on Cohesin Extrusion Dynamics.” Preprint. Genomics, October
   23, 2023. <https://doi.org/10.1101/2023.10.20.563340>.
   </details>
+- Divergent CTCF sites are enriched at boundaries, convergent CTCF sites
+  mark the interior of TADs, short loops in the 5-100kb range. Good
+  intro about TADs. CTCF orientation is not linked to the direction of
+  transcription. Definition of eight orientation patterns. Supplementary
+  data: Table S1 - CTCF coordinates with directionality, Table S3 -
+  consensus CTCF coordinates.
+  <details>
+  <summary>
+  Paper
+  </summary>
+  Nanni, Luca, Stefano Ceri, and Colin Logie. “Spatial patterns of CTCF
+  sites define the anatomy of TADs and their boundaries.” Genome biology
+  21 (2020): 1-25. <https://doi.org/10.1186/s13059-020-02108-x>
+  </summary>
 
 ## Citation
 
@@ -510,13 +529,13 @@ print(citation("CTCF"), bibtex = TRUE)
 ```
 
 <!--
-Please note that the *[CTCF](https://bioconductor.org/packages/3.16/CTCF)* was only made possible thanks to many other R and 
+Please note that the *[CTCF](https://bioconductor.org/packages/3.19/CTCF)* was only made possible thanks to many other R and 
 bioinformatics software authors, which are cited either in the vignettes and/or 
 the paper(s) describing this package.
 &#10;## Additional references
 &#10;- Marina-Zárate, Ester, Ana Rodríguez-Ronchel, Manuel J. Gómez, Fátima Sánchez-Cabo, and Almudena R. Ramiro. "Low affinity CTCF binding drives transcriptional regulation whereas high affinity binding encompasses architectural functions." iScience (2023). https://doi.org/10.1016/j.isci.2023.106106
 &#10;## Development tools
-&#10;* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through *[usethis](https://CRAN.R-project.org/package=usethis)*, *[remotes](https://CRAN.R-project.org/package=remotes)*, and *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
+&#10;* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through *[usethis](https://CRAN.R-project.org/package=usethis)*, *[remotes](https://CRAN.R-project.org/package=remotes)*, and *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and *[BiocCheck](https://bioconductor.org/packages/3.19/BiocCheck)*.
 * Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh) and *[covr](https://CRAN.R-project.org/package=covr)*.
 * The [documentation website](http://mdozmorov.github.io/CTCF) is automatically updated thanks to *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
 * The code is styled automatically thanks to *[styler](https://CRAN.R-project.org/package=styler)*.
@@ -525,7 +544,7 @@ the paper(s) describing this package.
 -->
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.16/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.19/biocthis)*.
 
 ## Code of Conduct
 
