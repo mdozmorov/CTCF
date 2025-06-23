@@ -485,25 +485,11 @@ the Xe-Y threshold.
 
 # Future development
 
-- High-resolution CTCF footprinting, K562 cell line. CTCF MNase HiChIP
-  data, long fragments correspond to nucleosome-protected DNA whereas
-  short fragments arise from CTCF-protected DNA.
-  [FactorFinder](https://github.com/aryeelab/cohesin_extrusion_reproducibility)
-  tool for near-base-pair resolution CTCF detection, uses the
-  distribution of short fragments around a CTCF binding site.
-  Benchmarking against CTCF motif location, ChIP-seq peaks, loop
-  anchors. A model of topological regulation by partially extruded CTCF
-  loops. Data to be available.
-  <details>
-  <summary>
-  Paper
-  </summary>
-  Sept, Corriene E., Y. Esther Tak, Christian G. Cerda-Smith, Haley M.
-  Hutchinson, Viraat Goel, Marco Blanchette, Mital S. Bhakta, et
-  al. “High-Resolution CTCF Footprinting Reveals Impact of Chromatin
-  State on Cohesin Extrusion Dynamics.” Preprint. Genomics, October
-  23, 2023. <https://doi.org/10.1101/2023.10.20.563340>.
-  </details>
+- CTCF footprinting with MNase HiChIP in K562. Short (<80bp) CTCF-protected fragments and longer (>120bp) nucleosome-protected fragments, alignment with upstream (16bp) and core (19bp) motif parts. Region Capture Micro-C in mESCs to identify CTCF-cohesin occupancy, cohesin depletion with auxin. Fully extruded loops are rare. Active chromatin impedes extrusion. Integration with other ChIP-seq and Hi-C datasets. CTCF Analyzer (with) Multinomial Estimation (CAMEL), a tool to detect significant CTCF footprints at near base-pair resolution. [GitHub](https://github.com/aryeelab/cohesin_extrusion_reproducibility) with detailed scripts for all prepeocessing and analyses. GEO [GSE285087](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE285087) PAIRS data. <details>
+    <summary>Paper</summary>
+    Sept, Corriene E., Y. Esther Tak, Viraat Goel, Mital S. Bhakta, Christian G. Cerda-Smith, Haley M. Hutchinson, Marco Blanchette, et al. “High-Resolution CTCF Footprinting Reveals Impact of Chromatin State on Cohesin Extrusion.” Nature Communications 16, no. 1 (May 15, 2025): 4506. https://doi.org/10.1038/s41467-025-57775-w.
+</details>
+
 - Divergent CTCF sites are enriched at boundaries, convergent CTCF sites
   mark the interior of TADs, short loops in the 5-100kb range. Good
   intro about TADs. CTCF orientation is not linked to the direction of
